@@ -1,0 +1,121 @@
+### PETMATE [Vetenarey appointment booking system ]
+
+1. -- Database Selection - till 12pm 
+
+    NoSql Mongodb - 
+
+    Data Modeling 
+      jwt = {email, id , status , name , role}
+
+     =Customers Schema
+        name : String
+        email : String
+        password : 
+        AuthStatus : Optional []
+        Role : "customer"
+        Pets : [ PetsCollection ID ]
+        status : true/false [Active / InActive]
+
+    
+     =Doctors Schema 
+        name : String
+        email : String
+        password : 
+        Degree : []
+        AuthStatus : Optional []
+        role : "doctor"
+        status : true/false [Active / InActive]
+        UPRN : Number/String [ unique permanent registration number]
+        Speciality : [ Strings ]
+
+     =Pets Schema 
+       name : string 
+       type : string eg. Cat, dog , parrot ,  
+       breed : string
+       OwnerID : "string"
+       Owner_Name : String
+       weight : {date : , value : }
+       DoB : date 
+       Vaccinations = [{name , date }]
+       status : {reason : "" , stat}
+       Medical History  { date : {
+         doctorID : 
+         type : ""
+         prescriptions : "
+         symptoms : 
+         Diagnosis : 
+       }}
+
+     =Admin Schema 
+       name : string 
+       status : 
+       email : 
+       password : 
+       Role : [ "Super Admin " 5 accounts  , Admin ]
+
+
+[register login common blacklisting caching ] - 2pm - meet 15-30mins
+
+2. Api Design  [register login common blacklisting caching ] - 6pm 
+   first create middleware for rolebased access
+   Users APIS 
+    - Pet Registration / updation / deletion 
+    - Pet Update [ update - weight , vaccination] 
+    - Add new Pet [ update on User schema and add in pets schema ]
+    - Password Updation --- Optional /( NodeMailer if applicable at do it at last )
+    - Only View GET medical History 
+
+   Doctors APIs
+    - Pet Update [ update - weight , vaccination] 
+    - Medical History Update and View 
+    - Updation [qualifications questionare / eg. degree , speciality ]
+
+   Admin APIs
+    -Create Admin Accounts and Delete accounts  [SuperAdmin]
+    -Inactive/active Status of user, pet , doctor = >[Admin , SuperAdmin];
+    -Number of pets [sorting and filtering - type breed] =>[ pet medical history only view]
+    -Number Of Users 
+    -Doctors Info [ Speciality sorts ]
+
+3. Appointment Booking System ==> Sql database - 5pm 
+   Data Model [Mysql] ==> ORM sequelize
+      Slots Schema
+       -SlotID : string 
+       -petID : string
+       -doctorID : String
+       -currStatus : string =>[open] [booked] [closed]
+       -customerID : default empty
+       -starttime : datetime format 
+       -endtime : datetime format 
+       -medicalhistory : true / false - default false 
+       -Doctorsummary : ""
+       -PatientSummary : ""
+
+   API Design 
+      -Doctors APIs 
+       -slot open [limit to 3 slots per doctorID,day] - Create operation 
+       -slot close : "Summary" Updation --if closing before endtime ==> summary update compulsory 
+       - Feedback or noshow Update - [Doctorsummary]
+
+      - Customers Api   
+       -slot book [limit to 1 slot per day ] - Update operation 
+       -viewSlots with doctorID 
+       -view all slots [optional do at the end ] integrate with Mongo
+       - Feedback or noshow Update -[PatientSummary]
+
+
+FRONTEND --
+
+   
+      
+
+
+
+
+
+        
+
+
+
+
+        
