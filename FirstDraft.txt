@@ -105,6 +105,20 @@
 
 
 FRONTEND --
+   =Login / Signup -> users,admins,doctors 
+
+   Users -
+    Pet Registration / updation / deletion 
+    View in my pets 
+    Pet Update [ update - weight , vaccination] 
+    Only View GET medical History 
+    View Doctors 
+    Book Doctors
+
+    
+    
+
+   
 
    
       
