@@ -3,7 +3,7 @@ document.querySelector("#footer").innerHTML=`
 <div id="footer-cont">
     <div data-aos="fade-right" data-aos-duration="1000" id="footer-left">
         <div>
-            <h4>Medistar</h4>
+            <h4>Petmate</h4>
             <p>About</p>
             <p>Blog</p>
             <p>Careers</p>
@@ -15,7 +15,7 @@ document.querySelector("#footer").innerHTML=`
             <p>Book an appointment</p>
             <br>
             <h4>For Doctors</h4>
-            <p>Medistar Profile</p>
+            <p>Petmate Profile</p>
         </div>
         <div>
             <h4>More</h4>

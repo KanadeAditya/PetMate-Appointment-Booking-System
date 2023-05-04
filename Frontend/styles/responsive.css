@@ -135,7 +135,7 @@
         width:45%;
         text-align: center;
         display:none;
-        background-color: #0b76c6;
+        background-color:#FAD02C;
     }
     #nav-menu>li{
         margin:0.5rem auto;
@@ -207,14 +207,13 @@
         /* border:1px solid black; */
     }
     #logo-div>img{
-        /* border:1px solid blue; */
+
         width:100%;
         height:5rem;
         object-fit: contain;
     }
     #socials{
         width:75%;
-        /* border:1px solid blue; */
         margin:1rem auto;
         display: grid;
         grid-template-columns: repeat(2,1fr);
@@ -222,11 +221,11 @@
         text-align: center;
     }
     .card-img-overlay>div{
-        /* border:1px solid red; */
+
         margin: 10px;
     }
     .input-grp{
-        /* border:1px solid red; */
+
         width: 65%;
         margin: auto;
         margin-top: 3%;
@@ -245,7 +244,6 @@
         padding-top:1rem;
     }
     .card-group{
-        /* border:1px solid red;  */
         display: grid;
         grid-template-columns: repeat(1,1fr);
     }
@@ -253,7 +251,6 @@
         display: none;
     }
     #doctors-cont{
-        /* border:1px solid blue; */
         display: grid;
         grid-template-columns: repeat(1,1fr);
         gap:1.5rem;
@@ -262,7 +259,6 @@
         margin:auto;
         width:80%;
         display: block;
-        /* border:1px solid blue; */
     }
     #filter-approval{
         width:100%;
