@@ -37,8 +37,8 @@ li{
     gap: 3rem;
 }
 .feature-card{
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    border-radius: 20px;
     transition: transform .2s;
 }
 .feature-card:hover{
@@ -99,7 +99,7 @@ li{
     margin:5px 0;
 }
 .c-c-desc>a{
-    color:rgb(0, 183, 255);
+    color:#90ADC6;
     font-size: 12px;
     font-weight: bold;
     text-decoration: none;
@@ -138,3 +138,6 @@ li{
     line-height: 1.5rem;
     color:black
 }
+
+
+

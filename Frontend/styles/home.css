@@ -46,11 +46,11 @@ body{
     margin-top:-10px;
     padding:7px;
 }
-.safety-banner{
+/* .safety-banner{
     background-color: rgb(235, 233, 233);
-}
+} */
 .sb-top{
-    background-color: rgb(235, 233, 233);
+    /* background-color: rgb(235, 233, 233); */
     display: flex;
     justify-content: space-around;
     /* border: 1px solid red; */
@@ -87,10 +87,7 @@ body{
     margin-bottom: 4%;
     color: white;
 }
-.slides-banner{
-    background-color: rgb(235, 233, 233);
-    /* border:1px solid red; */
-}
+
 .slides-left{
     /* border:1px solid red; */
     margin-top: 3%;
@@ -113,7 +110,7 @@ body{
     margin-top: 5%; 
 }
 .trust-banner{
-    background-color: rgb(235, 233, 233);
+    /* background-color: rgb(235, 233, 233); */
     display: flex;
     justify-content: space-evenly;
 }
