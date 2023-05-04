@@ -1,28 +1,35 @@
 import express, {Request, Response} from "express"
-import { customerRoute } from "./Routes/Customer.routes"
-import { authMiddleware } from "./Middlewares/Auth.middle"
-import { roleMiddleware } from "./Middlewares/Role.middle"
+import { CustomerRouter } from "./Routes/Customer.routes"
+// import { AuthMiddleware } from "./Middlewares/Auth.middle"
+// import { RoleMiddleware } from "./Middlewares/Role.middle"
+import connection from './Config/db'
+import log from "./logs"
+import cors from 'cors'
+
+
 const app=express()
 
-app.use(express.json())
+//All immediate Middlewares here
+
+app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({extended:false}))
 
 
-app.get("/", (req:Request, res:Response)=>{
-    res.send("Home page")
-})
-
-app.use("/customer", customerRoute)
-
-app.use(authMiddleware)
+// All Routes are here 
 
 app.get("/", (req:Request, res:Response)=>{
-    res.send("Hii Customer! I hope you are well...")
+    res.send(`<h1>Server is working fine... </h1><h3>PORT :- ${process.env.port}<h3/>`)
 })
 
+app.use("/customer", CustomerRouter)
 
-
-
-
-app.listen(4500, ()=>{
-    console.log("Server Running")
+// Db connected here
+app.listen(process.env.port, async ()=>{
+    try {
+        await connection.then(()=>log.info(`Database Connected ....`))
+        log.info(`server is running on ${process.env.port}`)
+    } catch (error : any) {
+        log.info('DB-error',`${error.message}`)
+    }
 })
