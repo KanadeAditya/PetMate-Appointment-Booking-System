@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-dotenv.config();
+require('dotenv').config();
 
 interface TokenPayload {
-  userId: string;
+  userID: string;
+  role : string;
+  status : boolean;
+  email : string;
 }
 
 declare global {
@@ -16,19 +17,23 @@ declare global {
   }
 }
 
-const authMiddleware = async(req: Request, res: Response, next: NextFunction) => {
+const AuthMiddleware = async(req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.headers.authorization?.split(' ')[1];
+    const token = req.headers.authorization;
     if(!token){
       res.status(401).send({"msg": "login again"})
+    }else{
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY) as TokenPayload;
+      const { userID  , status ,email ,role} = decodedToken;
+      req.body.userID = userID; 
+      req.body.status = status; 
+      req.body.email = email; 
+      req.body.role = role; 
+      next();
     }
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET) as TokenPayload;
-    const { userId } = decodedToken;
-
-    next();
   } catch (error) {
-    return res.status(401).json({ message: 'Unauthorized' }); 
+    return res.status(401).json({ message: 'Unauthorized' ,error}); 
   }
 };
 
-export { authMiddleware };
+export { AuthMiddleware };

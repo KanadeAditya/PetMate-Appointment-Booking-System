@@ -4,7 +4,7 @@ interface IAdmin extends Document {
   name: string;
   email: string;
   password: string;
-  role: "Super Admin" | "Admin";
+  role: "SuperAdmin" | "Admin";
   status: boolean;
 }
 
@@ -25,7 +25,7 @@ const adminSchema = new mongoose.Schema<IAdmin>({
   role: {
     type: String,
     required: true,
-    enum: ["Super Admin", "Admin"],
+    enum: ["SuperAdmin", "Admin"],
     default: "Admin",
   },
   status: {
