@@ -1,5 +1,8 @@
 import express, {Request, Response} from "express"
 import { CustomerRouter } from "./Routes/Customer.routes"
+import {DoctorRouter} from './Routes/Doctors.routes'
+import {AdminRouter} from './Routes/Admins.routes'
+import {PetRouter} from './Routes/Pets.routes'
 // import { AuthMiddleware } from "./Middlewares/Auth.middle"
 // import { RoleMiddleware } from "./Middlewares/Role.middle"
 import connection from './Config/db'
@@ -22,7 +25,12 @@ app.get("/", (req:Request, res:Response)=>{
     res.send(`<h1>Server is working fine... </h1><h3>PORT :- ${process.env.port}<h3/>`)
 })
 
-app.use("/customer", CustomerRouter)
+// Routers Here 
+app.use("/customers", CustomerRouter)
+app.use('/doctors',DoctorRouter)
+app.use('/admin',AdminRouter)
+app.use('/pets',PetRouter)
+
 
 // Db connected here
 app.listen(process.env.port, async ()=>{

@@ -47,6 +47,7 @@ const doctorSchema: Schema = new Schema({
   },
   speciality: {
     type: [String],
+    default : []
   },
   // authStatus: [authStatusSchema],
   role: {

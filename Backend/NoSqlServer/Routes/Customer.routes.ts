@@ -24,8 +24,11 @@ CustomerRouter.post("/register", async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
     const userExist = await CustomerModel.findOne({ email });
-
-    if (userExist) {
+    if(!name || !email || !password){
+      res
+      .status(400)
+      .send({msg : 'Please Provide All The Details correctly'})
+    }else if (userExist) {
       res
         .status(400)
         .send({ msg: `Customer already registered with this ${email} id` });
@@ -51,6 +54,13 @@ CustomerRouter.post("/register", async (req: Request, res: Response) => {
 CustomerRouter.post("/login", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+
+    if(!email || !password){
+      res
+      .status(400)
+      .send({msg : 'Please Provide All The Details correctly'})
+      return 
+    }
 
     const user = await CustomerModel.findOne({ email });
 
@@ -98,6 +108,8 @@ CustomerRouter.get('/checkrbac',AuthMiddleware,rbac(['customer']),(req : Request
     res.status(500).send({ msg: "something went wrong in auth", error: error.message });
   }
 })
+
+//Start Writing Routes from here use rbac and authmiddleware if you want 
 
 
 export { CustomerRouter };
