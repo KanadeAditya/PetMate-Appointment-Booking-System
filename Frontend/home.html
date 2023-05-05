@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./Styles/navbar.css"/>
     <link rel="stylesheet" href="./Styles/footer.css"/>
     <link rel="stylesheet" href="./Styles/responsive.css"/>
-    <link rel="stylesheet" href="./css/all.css"> 
+    <link rel="stylesheet" href="./styles/index.css"> 
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <title>Home</title>
@@ -20,6 +20,21 @@
     <style>
 
     </style>
+     <link
+     href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto:wght@300&display=swap"
+     rel="stylesheet"
+   />
+   <link
+     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+     rel="stylesheet"
+     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+     crossorigin="anonymous"
+   />
+   <script
+     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+     crossorigin="anonymous"
+   ></script>
 </head>
 
 <body style="background-color: #E9EAEC;">
@@ -28,31 +43,146 @@
         <!-- Navbar Imported -->
     </section> 
 
-    <div class="card bg-dark text-white">
-        <img src="./Files/doctor_search.png" class="card-img" alt="...">
-        <div class="card-img-overlay">
-            <h1 class="card-title">YOUR HOME FOR HEALTH</h1>
-            <div>
-                <h3 class="card-text">Find and Book</h3>
-                <div class="input-grp">
-                    <p>Select Department: </p>
-                    <select id="select-dept">
-                        <option value="">All Departments</option>
-                        <option value="1">Neurology</option>
-                        <option value="2">Dermatology</option>
-                        <option value="3">Dental</option>
-                        <option value="4">Ayurveda</option>
-                        <option value="5">Gastroenterology</option>
-                        <option value="6">Gynaecology</option>
-                        <option value="7">ENT</option>
-                        <option value="8">General Physician</option>
-                        <option value="9">Orthopedic</option>
-                        <option value="10">Cardiology</option>
-                    </select>
-                </div>
+    <section class="animalList">
+        <div class="container">
+          <h1 class="p-4 mt-5 text-center">
+            Animals That We <span class="txtor f-1 fw-bold">Consult</span>
+          </h1>
+          <p>
+            Please note that we only provide
+            <span class="fw-bold">online vet consultations,</span> and the
+            appointment time can be modified subject to the veterinarian’s
+            availability.
+          </p>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-3 col-sm-6 text-center">
+                <img
+                  class="img-fluid"
+                  src="https://jaldeevets.com/wp-content/uploads/2023/01/1-1.png"
+                  alt=""
+                />
+                <h2 class="text-center txtor">Dogs</h2>
+              </div>
+              <div class="col-lg-3 col-sm-6 text-center">
+                <img
+                  class="img-fluid"
+                  src="https://jaldeevets.com/wp-content/uploads/2023/01/2-1.png"
+                  alt=""
+                />
+                <h2 class="text-center txtor">Cats</h2>
+              </div>
+              <div class="col-lg-3 col-sm-6 text-center">
+                <img
+                  class="img-fluid"
+                  src="https://jaldeevets.com/wp-content/uploads/2023/01/3-1.png"
+                  alt=""
+                />
+                <h2 class="text-center txtor">Rabbits</h2>
+              </div>
+              <div class="col-lg-3 col-sm-6 text-center">
+                <img
+                  class="img-fluid"
+                  src="https://jaldeevets.com/wp-content/uploads/2023/02/6.png"
+                  alt=""
+                />
+                <h2 class="text-center txtor">Cow/Buffalos</h2>
+              </div>
             </div>
+            <div class="row">
+              <div class="col-lg-3 col-sm-6 text-center">
+                <img
+                  class="img-fluid"
+                  src="https://jaldeevets.com/wp-content/uploads/2023/02/Vets-Animals-Icons.png"
+                  alt=""
+                />
+                <h2 class="text-center txtor">Fishes</h2>
+              </div>
+              <div class="col-lg-3 col-sm-6 text-center">
+                <img
+                  class="img-fluid"
+                  src="https://jaldeevets.com/wp-content/uploads/2023/02/7.png"
+                  alt=""
+                />
+                <h2 class="text-center txtor">Birds</h2>
+              </div>
+              <div class="col-lg-3 col-sm-6 text-center">
+                <img
+                  class="img-fluid"
+                  src="https://jaldeevets.com/wp-content/uploads/2023/02/8.png"
+                  alt=""
+                />
+                <h2 class="text-center txtor">Horses</h2>
+              </div>
+              <div class="col-lg-3 col-sm-6 text-center">
+                <img
+                  class="img-fluid"
+                  src="https://jaldeevets.com/wp-content/uploads/2023/02/9.png"
+                  alt=""
+                />
+                <h2 class="text-center txtor">Exotic Animals</h2>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </section>
+
+      <section class="howtobook">
+        <div class="container text-center pt-3 pb-4 mb-2">
+          <h1 class="pt-5 mt-5 fw-bold">
+            How To Book<span class="txtor"> Online Vet Consultation?</span>
+          </h1>
+          <div class="container-fluid pb-4">
+            <div class="row container-fluid">
+              <div class="col-md-4">
+                <div class="container-fluid adw">
+                  <img
+                    class="img-fluid mb-0 pb-0 cropversion"
+                    src="https://jaldeevets.com/wp-content/uploads/2022/10/2-3-1024x1024-1.webp"
+                    alt=""
+                  />
+                </div>
+                <h3 class="txtor fw-bold">Schedule Appointment</h3>
+                <p class="fw-medium text-center">
+                  Select the date & time to reserve your slot & pay the
+                  consultation fee online using flexible payment modes
+                </p>
+                <button class="bgorr">Book Now</button>
+              </div>
+              <div class="col-md-4">
+                <div class="container-fluid adw">
+                  <img
+                    class="img-fluid mb-0 pb-0 cropversion"
+                    src="https://jaldeevets.com/wp-content/uploads/2022/10/Vets-IGFB-1-1024x1024-1.webp"
+                    alt=""
+                  />
+                </div>
+                <h3 class="txtor fw-bold">Connect with Online Vet</h3>
+                <p class="fw-medium text-center">
+                  Choose between video, voice, or chat. Upload pictures, past
+                  medical history, and access digital prescriptions.
+                </p>
+                <button class="bgorr">Book Now</button>
+              </div>
+              <div class="col-md-4">
+                <div class="container-fluid adw">
+                  <img
+                    class="img-fluid mb-0 pb-0 cropversion"
+                    src="https://jaldeevets.com/wp-content/uploads/2022/10/4-2-1024x1024-1.webp"
+                    alt=""
+                  />
+                </div>
+                <h3 class="txtor fw-bold">Receive Follow-Ups</h3>
+                <p class="fw-medium text-center">
+                  We will follow up to check your pet's health and advise
+                  whether or not you need another session.
+                </p>
+                <button class="bgorr">Book Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
 
     <div class="safety-banner">
@@ -65,7 +195,8 @@
                     <li style="color: gray;">&#10004; Multiple data backups</li>
                     <li style="color: gray;">&#10004; Stirngent data privacy policy</li>
                 </ul>
-                <button type="button" class="btn btn-info" style="color: white;">Read More</button>
+                <button type="button"  class="btn btn-info" >Read More</button>
+               
             </div>
             <div class="sb-top-img">
                 <img src="./Files/security_1.4f45ac92aba979dac915f864df632d90.png" alt="">
@@ -126,89 +257,7 @@
     </div>
 
 
-    <div class="slides-banner" data-aos="fade-right" data-aos-duration="800"  style="display: flex;justify-content: space-between;background-color: rgb(235, 233, 233)">
-        <div class="slides-left" >
-            <h1 style="color: gray;">Get all your medicines</h1>
-            <h1 style="color: black;"> Everytime. On time.</h1>
-            <ul>
-                <li style="color: gray;">&#10004; Guaranteed availability</li>
-                <li style="color: gray;">&#10004; Over 1 lakh stisfied patients</li>
-                <li style="color: gray;">&#10004; Emergency 24*7</li>
-            </ul>
-            <div>
-                <div>
-                    <button type="button" class="btn btn-info">
-                        Order medicines</button>
-                </div>
-            <div>
-               <!--   <p>Last order delivered 20 mins <br> ago in Chikkabellandur, Bengaluru</p>  -->
-            </div>
-        </div>
-        <div>
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <p>Very helpful. Far easier than doing same things on computer. Allows quick and easy search with speedy booking. 
-                        <br>Even maintains history of doctors visited.</p>
-                </div>
-                <div class="carousel-item">
-                    <p>Very easy to book,maintain history. Hassle free from older versions of booking appointment via telephone.
-                        <br> Thanks for making it simple.</p>
-                </div>
-                <div class="carousel-item">
-                    <p>Very helpful. Far easier than doing same things on computer. Allows quick and easy search with speedy booking.
-                        <br> Even maintains history of doctors visited.</p>
-                </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-    </div>
-        <div class="slides-img">
-            <img src="./Files/order.c84fc07b0be8a7e8d4db432eb4e606a2.svg" alt="">
-        </div>
-    </div>
-  
-    <div class="records-banner" data-aos-duration="800">
-        <div>
-            <img src="./Files/record.bfc5241f9b15340a32c98eb360d1005a.svg" alt="">
-        </div>
-        <div>
-            <h1 style="color: grey;">All your medical records</h1>
-            <h1>In one secure app</h1>
-            <ul>
-                <li style="color: gray;">&#10004; 256 bit end-to-end encryption</li>
-                <li style="color: gray;">&#10004; Records are accessible only by you</li>
-                <li style="color: gray;">&#10004; Access your records around 8000+ centers</li>
-            </ul>
-            <button type="button" class="btn btn-info">
-                    Find out more</button>
-        </div>
-    </div>
-
-    <div class="trust-banner" data-aos-duration="800">
-        <div class="trust-info">
-            <h1 style="color: grey;">Leading healthcare provider</h1>
-            <h1>Trust us for businesses</h1>
-            <ul>
-                <li style="color: gray;">&#10004; Get seen by 25M paitients</li>
-                <li style="color: gray;">&#10004; The most advanced software for clinics and hospitals</li>
-                <li style="color: gray;">&#10004; State of art business analytics and enterprises</li>
-            </ul>
-            <button type="button" class="btn btn-info" style="margin-bottom: 4%;color: white;">
-                    Learn more</button>
-        </div>
-        <div class="trust-img" style="margin-right: 10%;margin-top: 5%;">
-            <img style="width: 100%;" src="./Files/provider.c4a3d938da109434de6ce3a9046bbf42 (1).png" alt="">
-        </div>
-    </div>
+   
 
 
     <section id="footer">
