@@ -12,7 +12,12 @@ interface TokenPayload {
 declare global {
   namespace Express {
     interface Request {
-      user?: any;
+      user?: {
+        userId: string;
+        role: string;
+        status: boolean;
+        email: string;
+      };
     }
   }
 }
@@ -25,10 +30,7 @@ const AuthMiddleware = async(req: Request, res: Response, next: NextFunction) =>
     }else{
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY) as TokenPayload;
       const { userID  , status ,email ,role} = decodedToken;
-      req.body.userID = userID; 
-      req.body.status = status; 
-      req.body.email = email; 
-      req.body.role = role; 
+      req.user={userId:userID, status:status,email: email, role: role}
       next();
     }
   } catch (error) {
