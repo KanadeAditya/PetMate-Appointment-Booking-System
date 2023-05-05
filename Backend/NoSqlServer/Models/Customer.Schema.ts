@@ -10,7 +10,7 @@ interface ICustomer extends Document {
   email: string;
   password: string;
   authStatus: IAuthStatus[];
-  role: 'customer' | 'doctor' | 'admin' | 'superadmin';
+  role: 'customer' ;
   status: boolean;
 }
 

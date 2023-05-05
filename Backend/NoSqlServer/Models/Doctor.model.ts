@@ -17,10 +17,10 @@ interface IDoctor extends Document {
   status: boolean;
 }
 
-const authStatusSchema: Schema = new Schema({
-  authType: { type: String, required: true },
-  authToken: { type: String, required: true },
-});
+// const authStatusSchema: Schema = new Schema({
+//   authType: { type: String, required: true },
+//   authToken: { type: String, required: true },
+// });
 
 const doctorSchema: Schema = new Schema({
   name: {
@@ -47,13 +47,13 @@ const doctorSchema: Schema = new Schema({
   },
   speciality: {
     type: [String],
+    default : []
   },
-  authStatus: [authStatusSchema],
+  // authStatus: [authStatusSchema],
   role: {
     type: String,
     required: true,
-    default: "doctor",
-    enum: ["doctor", "admin", "superadmin"],
+    default: "doctor"
   },
   status: {
     type: Boolean,
