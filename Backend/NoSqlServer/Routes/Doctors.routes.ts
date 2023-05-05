@@ -91,6 +91,31 @@ DoctorRouter.post("/login", async (req: Request, res: Response) => {
   }
 });
 
+//Route for adding qulification and speciality of doctor
+DoctorRouter.patch('/speciality', AuthMiddleware,rbac(['doctor']), async (req: Request, res: Response) => {
+  try {
+    const { degree, speciality } = req.body;
+
+    if (!degree || !speciality) {
+      res.status(400).send({ msg: 'Please provide all the details correctly' });
+      return;
+    }
+
+    const doctorId = req.body.userID;
+    const update = { degree, speciality };
+
+    const updatedDoctor = await DoctorModel.findByIdAndUpdate(
+      doctorId,
+      update,
+      { new: true } // to get the updated document in the response
+    );
+
+    res.status(200).send({ msg: 'Doctor info updated successfully', doctor: updatedDoctor });
+  } catch (err) {
+    res.status(500).send({ msg: 'Something went wrong in updating doctor info', error: err.message });
+  }
+});
+
 // Checking if AuthMiddleware is Working Fine
 DoctorRouter.get('/checkauth',AuthMiddleware,(req : Request , res : Response)=>{
   try {
