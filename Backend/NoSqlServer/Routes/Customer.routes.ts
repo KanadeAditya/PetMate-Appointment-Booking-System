@@ -84,7 +84,7 @@ CustomerRouter.post("/login", async (req: Request, res: Response) => {
       expiresIn: "2 day",
     });
 
-    res.status(200).send({name : user.name,email : user.email, acessToken, refToken });
+    res.status(200).send({msg:"login successful",name : user.name,email : user.email, acessToken, refToken });
   } catch (err) {
     log.info('POST /login error',err.message)
     res.status(500).send({ msg: "something went wrong in logging user", error: err.message });

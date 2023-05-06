@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 
     <link rel="stylesheet" href="./Styles/navbar.css">
     <link rel="stylesheet" href="./Styles/footer.css">
     <link rel="stylesheet" href="Styles/responsive.css">
-    <link rel="stylesheet" href="./css/all.css">
     <link rel="stylesheet" href="Styles/login.css">
+
+        <!-- for beautiful alert  -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <title>Doctor Registration</title>
 </head>
@@ -22,29 +23,29 @@
 
     <div id="login">
         <div class="main_div">
-            <div class="title">Registration Form</div>
+            <div class="title">Doctor SignUp</div>
             <div class="social_icons">
                 <a href="#"><i class="fab fa-facebook-f"></i> <span>Facebook</span></a>
                 <a href="#"><i class="fab fa-google"></i><span>Google</span></a>
             </div>
             <form action="#">
                 <div class="input_box">
-                    <input type="text" placeholder="Name" required>
+                    <input type="text" placeholder="Name" required class="name">
                     <div class="icon"><i class="fas fa-mobile"></i></div>
                 </div>
 
                 <div class="input_box">
-                    <input type="text" placeholder="Email" required>
+                    <input type="text" placeholder="Email" required class="email">
                     <div class="icon"><i class="fas fa-user"></i></div>
                 </div>
 
                 <div class="input_box">
-                    <input type="text" placeholder="UPRN" required>
+                    <input type="text" placeholder="UPRN" required class="uprn">
                     <div class="icon"><i class="fas fa-code"></i></div>
                 </div>
 
                 <div class="input_box">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Password" required class="password">
                     <div class="icon"><i class="fas fa-lock"></i></div>
                 </div>
                 <div class="option_div">
@@ -60,7 +61,7 @@
                     <input type="submit" value="Register">
                 </div>
                 <div class="sign_up">
-                    Already a member? <a href="login.html">Login now</a>
+                    Already a member? <a href="doctorLogin.html">Login now</a>
                 </div>
             </form>
         </div>
@@ -70,8 +71,8 @@
 
 
 </body>
-<script src="./scripts/navbar.js"></script>
-<script src="./scripts/footer.js"></script>
-<script src="scripts/login.js"></script>
+<script type="module" src="./scripts/navbar.js"></script>
+<script type="module" src="./scripts/footer.js"></script>
+<script type="module" src="scripts/doctor_signup.js"></script>
 
 </html>

@@ -100,7 +100,7 @@ AdminRouter.post("/login", async (req: Request, res: Response) => {
 
     res
       .status(200)
-      .send({ name: admin.name, email: admin.email, acessToken, refToken });
+      .send({msg:"login successful", name: admin.name, email: admin.email, acessToken, refToken });
   } catch (err) {
     log.info("POST /admin/login error", err.message);
     res

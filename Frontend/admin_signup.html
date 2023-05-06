@@ -12,11 +12,9 @@
     <link rel="stylesheet" href="Styles/responsive.css">
     <link rel="stylesheet" href="Styles/login.css">
 
-    <!-- for beautiful alert  -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <link rel="stylesheet" href="./">
-    <title>SignUp</title>
+        <!-- for beautiful alert  -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Login</title>
 </head>
 
 <body>
@@ -24,7 +22,7 @@
 
     <div id="login">
         <div class="main_div">
-            <div class="title">SignUp Form</div>
+            <div class="title">Admin SignUp</div>
             <div class="social_icons">
                 <a href="#"><i class="fab fa-facebook-f"></i> <span>Facebook</span></a>
                 <a href="#"><i class="fab fa-google"></i><span>Google</span></a>
@@ -36,7 +34,7 @@
                 </div>
 
                 <div class="input_box">
-                    <input type="text" placeholder="Email" required class="email">
+                    <input type="email" placeholder="Email" required class="email">
                     <div class="icon"><i class="fas fa-user"></i></div>
                 </div>
                 <div class="input_box">
@@ -55,18 +53,9 @@
                 <div class="input_box button">
                     <input type="submit" value="SignUp">
                 </div>
-
                 <div class="sign_up">
-                    Already a member? <a href="login.html">Login now</a>
+                    Already a member? <a href="adminLogin.html">Login now</a>
                 </div>
-
-                <div class="sign_up">
-                    Are you a Admin? <a href="adminLogin.html">Login here</a>
-                  </div>
-                  
-                  <div class="sign_up">
-                    Are you a Doctor? <a href="doctorLogin.html">Login here</a>
-                  </div>
             </form>
         </div>
     </div>
@@ -77,6 +66,6 @@
 </body>
 <script  type="module" src="./scripts/navbar.js"></script>
 <script type="module" src="./scripts/footer.js"></script>
-<script type="module" src="scripts/signUp.js"></script>
+<script type="module" src="scripts/adminSignup.js"></script>
 
 </html>
