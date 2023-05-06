@@ -76,7 +76,7 @@ CustomerRouter.post("/login", async (req: Request, res: Response) => {
       return;
     }
 
-    const acessToken = jwt.sign({ userID: user._id , role : user.role ,email : user.email}, process.env.JWT_SECRET_KEY as string, {
+    const acessToken = jwt.sign({ userID: user._id ,status:user.status, role : user.role ,email : user.email}, process.env.JWT_SECRET_KEY as string, {
       expiresIn: "1 day",
     });
 

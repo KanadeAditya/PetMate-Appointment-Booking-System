@@ -23,8 +23,9 @@ const AuthMiddleware = async(req: Request, res: Response, next: NextFunction) =>
     if(!token){
       res.status(401).send({"msg": "login again"})
     }else{
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY) as TokenPayload;
+      const decodedToken = jwt.verify(token, `${process.env.JWT_SECRET_KEY}`) as TokenPayload;
       const { userID  , status ,email ,role} = decodedToken;
+      // console.log(status)
       if(status){
         req.body.userID = userID; 
         req.body.status = status; 
@@ -35,6 +36,7 @@ const AuthMiddleware = async(req: Request, res: Response, next: NextFunction) =>
       }else{
         res.send({msg : "Your Account is currently disabled, Kindly contact the admin"})
       }
+      
     }
   } catch (error) {
     return res.status(401).json({ message: 'Unauthorized' ,error}); 
