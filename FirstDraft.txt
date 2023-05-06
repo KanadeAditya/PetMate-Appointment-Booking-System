@@ -61,9 +61,15 @@
    Users APIS 
     - Pet Registration / updation / deletion 
     - Pet Update [ update - weight , vaccination] 
-    - Add new Pet [ update on User schema and add in pets schema ]
+    - Add new Pet [ update on User schema and add in pets schema ] -- discarded as we are using aggregation 
     - Password Updation --- Optional /( NodeMailer if applicable at do it at last )
-    - Only View GET medical History 
+    - Only View GET medical History -- customer , doctor 
+    -update medical 
+
+    ----Remaining Routes -- Aditya 
+      -Pet Deletion 
+      -get pets per userid 
+      -Update MedicalHistory -- role ['doctor'] 
 
    Doctors APIs
     - Pet Update [ update - weight , vaccination] 
@@ -76,6 +82,8 @@
     -Number of pets [sorting and filtering - type breed] =>[ pet medical history only view]
     -Number Of Users 
     -Doctors Info [ Speciality sorts ]
+
+    -
 
 3. Appointment Booking System ==> Sql database - 5pm 
    Data Model [Mysql] ==> ORM sequelize
@@ -97,7 +105,7 @@
        -slot close : "Summary" Updation --if closing before endtime ==> summary update compulsory 
        - Feedback or noshow Update - [Doctorsummary]
 
-      - Customers Api   
+      - Customers Api   -- Aditya 
        -slot book [limit to 1 slot per day ] - Update operation 
        -viewSlots with doctorID 
        -view all slots [optional do at the end ] integrate with Mongo
@@ -114,6 +122,45 @@ FRONTEND --
     Only View GET medical History 
     View Doctors 
     Book Doctors
+
+    Done -
+      Login , Signup  -- Shubham 
+      Homepage 
+      Landing Page 
+      Doctors Page 
+
+    Pages to be completed -
+       -Admins  -- Ayush , Yuvraj 
+       window.load(  )
+         Admin Pets Page 
+         Admin view Users 
+         Admin Homepage [ Users , Pets , Doctors , Current Open Slots] [ --- route ready ]
+         View Users Page -- active - inactive [route ready ]
+         Extra option SuperAdmin [ inactivate admin -- View Admins ]
+
+      -Users - Chandan 
+         My Pets - upadate , delete 
+         Booking Page - search doctor - sorting filtering  - View 
+
+         petMate = {
+            role = 
+            name = 
+            status = true / false 
+         }
+
+
+
+
+         
+
+         
+
+
+
+
+
+
+
 
     
     
