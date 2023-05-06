@@ -11,14 +11,14 @@ document.querySelector("form").addEventListener("submit", (e) => {
 
     console.log(usersDetail)
 
-    fetch(`${baseUrl}customers/login`, {
+    fetch(`${baseUrl}admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usersDetail)
     })
         .then((res) => res.json())
         .then((res) => {
-            if (res.msg=="login successfully") {
+            if (res.msg=="login successful") {
                 Swal.fire({
                     icon: 'success',
                     title: res.msg,

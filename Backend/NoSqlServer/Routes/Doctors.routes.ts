@@ -84,7 +84,7 @@ DoctorRouter.post("/login", async (req: Request, res: Response) => {
       expiresIn: "2 day",
     });
 
-    res.status(200).send({name : doc.name,email : doc.email, acessToken, refToken });
+    res.status(200).send({msg:"login successful",name : doc.name,email : doc.email, acessToken, refToken });
   } catch (err) {
     log.info('POST /doctors/login error',err.message)
     res.status(500).send({ msg: "something went wrong in logging doctor", error: err.message });
