@@ -78,7 +78,7 @@ AdminRouter.post("/login", async (req: Request, res: Response) => {
     }
 
     const acessToken = jwt.sign(
-      { userID: admin._id, role: admin.role, email: admin.email },
+      { userID: admin._id,status: admin.status, role: admin.role, email: admin.email },
       process.env.JWT_SECRET_KEY as string,
       {
         expiresIn: "1 day",

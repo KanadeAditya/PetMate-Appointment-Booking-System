@@ -76,7 +76,7 @@ DoctorRouter.post("/login", async (req: Request, res: Response) => {
       return;
     }
 
-    const acessToken = jwt.sign({ userID: doc._id , role : doc.role ,email : doc.email}, process.env.JWT_SECRET_KEY as string, {
+    const acessToken = jwt.sign({ userID: doc._id,status : doc.status , role : doc.role ,email : doc.email}, process.env.JWT_SECRET_KEY as string, {
       expiresIn: "1 day",
     });
 
