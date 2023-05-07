@@ -5,6 +5,8 @@ import { CustomerModel } from "../Models/Customer.Schema";
 import log from "../logs";
 import { AuthMiddleware } from "../Middlewares/Auth.middle"
 import { rbac } from "../Middlewares/Role.middle";
+// import nodemailer from "nodemailer"
+// import otpGenerator from "otp-generator"
 
 require('dotenv').config();
 
@@ -18,6 +20,50 @@ CustomerRouter.get('/',(req:Request , res: Response)=>{
       res.send({msg:'Something Went Wrong',error})
   }
 })
+
+
+//email verification
+// CustomerRouter.post("/emailVerify", async  (req:Request, res:Response) =>{
+//   try {
+//     const otp = otpGenerator.generate(4, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false })
+
+//     const {email} = req.body
+
+//             // create a transporter object using SMTP transport
+//             let transporter = nodemailer.createTransport({
+//               service: 'gmail',
+//               auth: {
+//                   user: process.env.nodemailerEmail,
+//                   pass: process.env.nodemailerPass
+//               }
+//           });
+  
+  
+//           // create an email message
+//           const mailOptions = {
+//               from: process.env.nodemailerEmail,
+//               to: email,
+//               subject: "Verification OTP",
+//               text: `Your OTP is ${otp}`
+//           };
+  
+  
+//           // send the email message
+//           transporter.sendMail(mailOptions, (error, info) => {
+//               if (error) {
+//                   console.log(error);
+//                   // res.send({ "msg": error.message })
+//               } else {
+//                   console.log(`Email sent: ${info.response}`);
+//               }
+//           });
+//   } catch (err) {
+//     log.info('POST customers/emailVerify error',err.message)
+//     res
+//       .status(500)
+//       .send({ msg: "something went wrong in registering customer", error: err.message });
+//   }
+// })
 
 // User Register Logic here 
 CustomerRouter.post("/register", async (req: Request, res: Response) => {
@@ -42,7 +88,7 @@ CustomerRouter.post("/register", async (req: Request, res: Response) => {
       res.status(200).send({ msg: "Customer Registered successfully" , customer });
     }
   } catch (err) {
-    log.info('POST /register error',err.message)
+    log.info('POST customers/register error',err.message)
     res
       .status(500)
       .send({ msg: "something went wrong in registering customer", error: err.message });
@@ -86,7 +132,7 @@ CustomerRouter.post("/login", async (req: Request, res: Response) => {
 
     res.status(200).send({msg:"login successful",name : user.name,email : user.email, acessToken, refToken });
   } catch (err) {
-    log.info('POST /login error',err.message)
+    log.info('POST customers/login error',err.message)
     res.status(500).send({ msg: "something went wrong in logging user", error: err.message });
   }
 });
