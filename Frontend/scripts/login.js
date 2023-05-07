@@ -18,7 +18,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
     })
         .then((res) => res.json())
         .then((res) => {
-            if (res.msg=="login successfully") {
+            if (res.msg=="login successful") {
                 Swal.fire({
                     icon: 'success',
                     title: res.msg,

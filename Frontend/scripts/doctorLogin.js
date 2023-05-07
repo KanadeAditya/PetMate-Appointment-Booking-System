@@ -24,11 +24,12 @@ document.querySelector("form").addEventListener("submit", (e) => {
                     showConfirmButton: false,
                     timer: 1000,
                     willClose: () => {
-                        window.open("home.html")
+                        window.open("doctorPage.html")
                       }
                 })
 
                 localStorage.setItem("token",res.acessToken)
+                localStorage.setItem("email",res.email)
                 localStorage.setItem("userName",res.name)
             } else {
                 Swal.fire({

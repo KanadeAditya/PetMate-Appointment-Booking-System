@@ -10,6 +10,16 @@ document.querySelector("form").addEventListener("submit", (e) => {
 
     // console.log(usersDetail)
 
+    // fetch(baseUrl+"customers/emailVerify",{
+    //     method:"POST",
+    //     headers:{'Content-Type': 'application/json'},
+    //     body:JSON.stringify(usersDetail)
+    // })
+    // .then((res)=>res.json())
+    // .then((res)=>{
+        
+    // })
+
     fetch(baseUrl+`customers/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
