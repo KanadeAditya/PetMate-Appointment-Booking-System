@@ -6,7 +6,7 @@ body {
 nav {
     width: 100%;
     height: 60px;
-    background-color: #212121;
+    background-color: #FAD02C;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -23,7 +23,7 @@ nav h1 {
     margin: 0;
     padding: 0;
     font-size: 24px;
-    color: rgb(29, 250, 85);
+    color: black;
 }
 
 nav ul {
@@ -39,7 +39,7 @@ nav li:not(:last-child) {
 }
 
 nav a {
-    color: rgb(29, 250, 85);
+    color: black;
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
@@ -52,38 +52,6 @@ nav a:hover {
 .logo img {
     height: 80px;
     margin-right: 10px;
-}
-
-.sidebar {
-    width: 300px;
-    height: 100%;
-    background: linear-gradient(to bottom, #006eff, #7700ff, #00ff4c);
-    position: fixed;
-    top: 60px;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: top;
-    align-items: center;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-    box-sizing: border-box;
-    padding: 20px;
-}
-
-.sidebar h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-
-.sidebar img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-
-.sidebar p {
-    margin: 5px 0;
 }
 
 .main {

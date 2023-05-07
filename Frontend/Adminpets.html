@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./styles/adminPets.css">
+  <link rel="stylesheet" href="./styles/sidebar.css">
+
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <div class="logo">
+      <img src="./Files/united-states-pets-small-business-logo-design-removebg-preview.png" alt="Admin Logo">
+    </div>
+    <h1>Admin Console</h1>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">APIs</a></li>
+      <li><a href="#">Logout</a></li>
+      <li class="toggle">
+        <input type="checkbox" class="checkbox" id="chk" />
+        <label class="label" for="chk">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+          <div class="ball"></div>
+        </label>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar"> </div>
+
+
+  <div id="heading">
+    <h1>Pets Console</h1>
+  </div>
+
+
+  <div class="main">
+
+    <div class="card">
+      <h2>Pet Name</h2>
+      <p>Type: <span class="type">Pet Type</span></p>
+      <p>Breed: <span class="breed">Pet Breed</span></p>
+      <p>Owner ID: <span class="owner-id">Owner ID</span></p>
+      <p>Owner Name: <span class="owner-name">Owner Name</span></p>
+      <p>Weight: <span class="weight">Pet Weight</span></p>
+      <p>Date of Birth: <span class="dob">Pet Date of Birth</span></p>
+      <p>Vaccination: <span class="vaccination">Pet Vaccination</span></p>
+      <p>Medical History: <span class="medical-history">Pet Medical History</span></p>
+      <button class="active-btn">Active</button>
+      <button class="inactive-btn">Inactive</button>
+    </div>
+
+    <div class="card">
+      <h2>Pet Name</h2>
+      <p>Type: <span class="type">Pet Type</span></p>
+      <p>Breed: <span class="breed">Pet Breed</span></p>
+      <p>Owner ID: <span class="owner-id">Owner ID</span></p>
+      <p>Owner Name: <span class="owner-name">Owner Name</span></p>
+      <p>Weight: <span class="weight">Pet Weight</span></p>
+      <p>Date of Birth: <span class="dob">Pet Date of Birth</span></p>
+      <p>Vaccination: <span class="vaccination">Pet Vaccination</span></p>
+      <p>Medical History: <span class="medical-history">Pet Medical History</span></p>
+      <button class="active-btn">Active</button>
+      <button class="inactive-btn">Inactive</button>
+    </div>
+
+    <div class="card">
+      <h2>Pet Name</h2>
+      <p>Type: <span class="type">Pet Type</span></p>
+      <p>Breed: <span class="breed">Pet Breed</span></p>
+      <p>Owner ID: <span class="owner-id">Owner ID</span></p>
+      <p>Owner Name: <span class="owner-name">Owner Name</span></p>
+      <p>Weight: <span class="weight">Pet Weight</span></p>
+      <p>Date of Birth: <span class="dob">Pet Date of Birth</span></p>
+      <p>Vaccination: <span class="vaccination">Pet Vaccination</span></p>
+      <p>Medical History: <span class="medical-history">Pet Medical History</span></p>
+      <button class="active-btn">Active</button>
+      <button class="inactive-btn">Inactive</button>
+    </div>
+
+    <div class="card">
+      <h2>Pet Name</h2>
+      <p>Type: <span class="type">Pet Type</span></p>
+      <p>Breed: <span class="breed">Pet Breed</span></p>
+      <p>Owner ID: <span class="owner-id">Owner ID</span></p>
+      <p>Owner Name: <span class="owner-name">Owner Name</span></p>
+      <p>Weight: <span class="weight">Pet Weight</span></p>
+      <p>Date of Birth: <span class="dob">Pet Date of Birth</span></p>
+      <p>Vaccination: <span class="vaccination">Pet Vaccination</span></p>
+      <p>Medical History: <span class="medical-history">Pet Medical History</span></p>
+      <button class="active-btn">Active</button>
+      <button class="inactive-btn">Inactive</button>
+    </div>
+
+
+  </div>
+
+</body>
+
+</html>
+<script>
+  const chk = document.getElementById('chk');
+
+  chk.addEventListener('change', () => {
+    document.body.classList.toggle('dark');
+  });
+
+</script>
+<script src="./scripts/adminSidebar.js"></script>
