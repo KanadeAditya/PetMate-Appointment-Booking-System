@@ -24,6 +24,9 @@ module.exports = {
       CustomerID: {
         type: Sequelize.STRING
       },
+      Price :{
+        type: Sequelize.INTEGER
+      },
       MedicalHistoryStatus: {
         type: Sequelize.BOOLEAN
       },
