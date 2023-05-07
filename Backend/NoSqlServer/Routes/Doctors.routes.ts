@@ -84,15 +84,17 @@ DoctorRouter.post("/login", async (req: Request, res: Response) => {
       expiresIn: "2 day",
     });
 
-    res.status(200).send({msg:"login successful",name : doc.name,email : doc.email, acessToken, refToken });
+    res.status(200).send({msg:"login successful",name : doc.name,email : doc.email, acessToken, refToken ,role:"doctor"});
   } catch (err) {
     log.info('POST /doctors/login error',err.message)
     res.status(500).send({ msg: "something went wrong in logging doctor", error: err.message });
   }
 });
 
+
+
 //Route for adding qulification and speciality of doctor
-DoctorRouter.patch('/speciality', AuthMiddleware,rbac(['doctor']), async (req: Request, res: Response) => {
+DoctorRouter.patch('/speciality',AuthMiddleware,rbac(['doctor']), async (req: Request, res: Response) => {
   try {
     const { degree, speciality } = req.body;
 
@@ -116,26 +118,7 @@ DoctorRouter.patch('/speciality', AuthMiddleware,rbac(['doctor']), async (req: R
   }
 });
 
-// Checking if AuthMiddleware is Working Fine
-DoctorRouter.get('/checkauth',AuthMiddleware,(req : Request , res : Response)=>{
-  try {
-    res.send({msg : 'Protected Route working Fine ...' , payload : req.body})
-  } catch (error) {
-    res.status(500).send({ msg: "something went wrong in auth", error: error.message });
-  }
-})
 
-// Checking if Role Based Access is working fine 
-DoctorRouter.get('/checkrbac',AuthMiddleware,rbac(['doctor']),(req : Request , res : Response)=>{
-  try {
-    res.send({msg : 'Role based access working Fine ...' , payload : req.body})
-  } catch (error) {
-    res.status(500).send({ msg: "something went wrong in auth", error: error.message });
-  }
-})
-
-
-//Start Writing Routes from here use rbac and authmiddleware if you want 
 
 
 

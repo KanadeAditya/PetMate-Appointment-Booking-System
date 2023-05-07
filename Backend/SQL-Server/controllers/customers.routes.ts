@@ -5,7 +5,8 @@ import log from "../logs";
 import { Request,Response } from "express";
 import { AuthMiddleware } from "../middlewares/Auth.middle";
 import { rbac } from "../middlewares/Role.middle";
-const { Op } = require("sequelize");
+import { Where } from "sequelize/types/utils";
+import { Op } from "sequelize";
 
 const CustomerRouter = Router()
 CustomerRouter.use(AuthMiddleware,rbac(['customer']))
@@ -21,7 +22,7 @@ CustomerRouter.get('/',(req : Request,res : Response) : void=>{
 
 CustomerRouter.post('/book/:SlotID',async (req : Request,res : Response) : Promise<void>=>{
     try {
-
+        
         let {userID , PetID} = req.body;    
         let {SlotID} = req.params;
         let ifexist = await db.Slot.findAll({
@@ -50,6 +51,27 @@ CustomerRouter.post('/book/:SlotID',async (req : Request,res : Response) : Promi
     }
 })
 
+CustomerRouter.get('/myslot',async (req : Request,res : Response) : Promise<void>=>{
+    try {
+        let {userID } = req.body;
+
+        let slot = await db.Slot.findAll({
+            where: {
+              CustomerID : userID
+            }
+          });
+       
+        if(slot){
+            res.send({msg:'Following are customer slot',slot})
+        }else{
+            res.send({msg:'Customer has no slots open'})
+        }
+    } catch (error : any) {
+        log.error(`customer-Route-Error ${error.message}`)
+        res.send({msg:'Something Went Wrong',error:error.message})
+    }
+})
+
 CustomerRouter.patch('/close/:SlotID',(req : Request,res : Response) : void=>{
     try {
 
@@ -57,13 +79,15 @@ CustomerRouter.patch('/close/:SlotID',(req : Request,res : Response) : void=>{
         let {CustomerSummary} = req.body
         if(SlotID){
             let update = db.Slot.update({ 
-                CurrentStatus:"booked",
+                CurrentStatus:"closed",
                 CustomerSummary : CustomerSummary || ""
             }, {
                 where: {
                     SlotID
                 }
               });
+
+            res.send({msg : "Slot has been closed"})
         }else{
             res.send({msg:'Please provide all the details'})
         }
