@@ -28,8 +28,8 @@ let pets_arr=[
 ]
 console.log(pets_arr)
 
-
-getdata();
+let token=localStorage.getItem("token")
+// getdata();
 renderdata(pets_arr);
 
 async function getdata() {
@@ -37,7 +37,8 @@ async function getdata() {
         const res = await fetch('http://localhost:1010/pets/allpets',{
             method: 'GET',
             headers: { 'Content-Type': 'application/json',
-            "Authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2OTg5YWU2Yjg5ZjdjMzExMDAxZmQiLCJzdGF0dXMiOnRydWUsInJvbGUiOiJjdXN0b21lciIsImVtYWlsIjoicmFtQGdtYWlsLmNvbSIsImlhdCI6MTY4MzQ0NjEyMywiZXhwIjoxNjgzNTMyNTIzfQ.tL3-2qib29I3CF1vTllbmSP3NTwoAma5hhxYHnYXRcE" },
+            "Authorization":token
+         },
             
         });
         let data = await res.json();
@@ -69,24 +70,21 @@ function renderdata(arr) {
                         <h3>Vaccination :-</h3>
                         <p>is_vaccinated:${"YEs"}</p>
                         
-
-
-                    </div>
+                   </div>
                 </div>
+
+
+                
                 <div class="doc-book">
                     <div class="select-app">
                         <form>
                             <div>
                                 <label>Vaccination  Date:</label>
-                                <select required="true" name="date">
-                                    <option value="May_07">07-May-23</option>
-                                    <option value="May_08">12-May-23</option>
-                                    <option value="May_09">13-May-23</option>
-                                </select>
+                                <input type="text" id="datepicker" />
                                 </div>
                                 <div>
                                 <label>Vaccination Status :</label>
-                                <select required="true" name="status">
+                                <select id="status" required="true" name="status">
                                     <option value="yes">YES</option>
                                     <option value="no">No</option>
 
@@ -96,16 +94,23 @@ function renderdata(arr) {
                            
                         </form>
 
+                       
+                       
+                        <button class="asd" id="popup-button">Medical History content</button>
+                        <div class="popup" id="popup-content">
+                            <p>This is the pop-up content!</p>
+                            <button id="close-button">Close</button>
+                        </div>
+
                         
-                        <button id="update-button">Update</button>
+                        <button class="asd" id="update-button">Update</button>
 
 <div id="update-form" class="hidden">
   <form>
     <label for="item-name">Item Name:</label>
-    <input type="text" id="item-name" name="item-name" required><br>
+    <input type="text" id="pet_weight" name="pet_weight" required><br>
 
-    <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" name="quantity" min="1" max="100" required><br>
+    
 
     <button type="submit">Save Changes</button>
     <button type="button" id="cancel-button">Cancel</button>
@@ -120,7 +125,23 @@ function renderdata(arr) {
     }).join("");
 
     // let forms=document.querySelectorAll(".select-app>form");
- 
+
+    $(function() {
+        $("#datepicker").datepicker();
+        });
+
+       document.querySelector("form").addEventListener("submit",(e)=>{
+        e.preventDefault();
+        console.log("heelo")
+        let date=document.getElementById("datepicker").value
+        let vaccinationstatus=document.getElementById("status").value
+        console.log(date,vaccinationstatus)
+       })
+
+
+       
+        
+        
 }
 
 
@@ -142,6 +163,19 @@ updateForm.addEventListener('submit', (event) => {
   updateForm.classList.add('hidden');
 });
 
+
+
+const popupButton = document.getElementById('popup-button');
+		const popupContent = document.getElementById('popup-content');
+		const closeButton = document.getElementById('close-button');
+		
+		popupButton.addEventListener('click', () => {
+			popupContent.style.display = 'block';
+		});
+		
+		closeButton.addEventListener('click', () => {
+			popupContent.style.display = 'none';
+		});
 
 
 
