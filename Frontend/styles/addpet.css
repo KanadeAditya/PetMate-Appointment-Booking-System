@@ -1,0 +1,70 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+main {
+    width: 40%;
+    margin: 70px auto;
+}
+
+#mainPage form{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#mainPage h2 {
+    /* text-align: center; */
+    letter-spacing: 1px;
+    font-size: 40px;
+    margin: 10px 0;
+    font-weight: 600;
+}
+#mainPage h2 span:first-child{
+    color: #333652;
+}
+#mainPage h2 span:last-child{
+    color: #333652;
+}
+
+
+
+#mainPage label {
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+#mainPage input {
+    margin: 10px 0;
+    padding: 6px;
+    height: 26px;
+    font-size: 14px;
+}
+
+#mainPage select {
+    margin: 10px 0;
+    padding: 6px;
+    height: 40px;
+    font-size: 14px;
+}
+
+#mainPage #applyBtn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    background: linear-gradient(90deg ,#4645442a, #524e4e);
+    margin: 10px 0;
+    cursor: pointer;
+    height: 100%;
+}
+
+#mainPage #applyBtn:hover {
+    background: #333652;
+}
