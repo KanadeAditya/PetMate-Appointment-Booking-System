@@ -35,3 +35,19 @@ document.querySelector("form").addEventListener("submit", (e) => {
             }
         })
 })
+
+let OauthDoc=document.getElementById("OauthDoc")
+OauthDoc.addEventListener("click",(e)=>{
+    let UPRN=document.querySelector(".uprn")
+    // alert(UPRN.value)
+    if(UPRN.value===""){
+        alert("field required")
+    }else{
+        // window.location.href=`https://salmon-coral-gear.cyclic.app/doctor/auth/google?UPRN=${UPRN.value}`
+        fetch(`https://salmon-coral-gear.cyclic.app/doctor/check?type=signup&UPRN=${UPRN.value}`).then(res=>res.json())
+        .then(data=>data.isExist ? alert("doctor is already exist please login") : window.location.href=`https://salmon-coral-gear.cyclic.app/doctor/auth/google?type=signup&UPRN=${UPRN.value}`  )
+
+        // window.location.href=`http://localhost:4500/doctor/check?type=signup&UPRN=${UPRN.value}` 
+    }
+    
+})
