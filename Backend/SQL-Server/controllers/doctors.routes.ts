@@ -27,10 +27,11 @@ DoctorRouter.post('/openslot',AuthMiddleware,rbac(['doctor']),async (req,res)=>{
     try {
         // res.send({msg:'working fine .....'})
 
-        let {} = req.body;
+        let {StartTime,EndTime,userID,price} = req.body;
+        // console.log(UserID)
         let slot = await db.Slot.create({
             SlotID:uuidv4(),
-           
+            DoctorID:userID,
             StartTime:new Date(),
             EndTime:new Date()
         })

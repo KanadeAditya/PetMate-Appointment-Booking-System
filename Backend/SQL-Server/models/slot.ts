@@ -6,6 +6,7 @@ interface ISlot {
   SlotID : string;
   PetID : string;
   DoctorID : string;
+  Price : number;
   CustomerID : string;
   CurrentStatus : string;
   StartTime : EpochTimeStamp
@@ -33,7 +34,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
     MedicalHistoryStatus !: string
     DoctorSummary !: string
     CustomerSummary !: string
-
+    Price !: number 
     static associate(models:any) {
       // define association here
     }
@@ -47,7 +48,7 @@ module.exports = (sequelize:any, DataTypes:any) => {
     },
     PetID: {
       type : DataTypes.STRING,
-      allowNull:false
+      defaultValue:""
     },
     DoctorID: {
       type : DataTypes.STRING,
@@ -55,7 +56,12 @@ module.exports = (sequelize:any, DataTypes:any) => {
     },
     CustomerID:{
       type : DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      defaultValue:""
+    },
+    Price : {
+      type : DataTypes.INTEGER,
+      allowNull : false
     },
     CurrentStatus: {
       type: DataTypes.ENUM,
