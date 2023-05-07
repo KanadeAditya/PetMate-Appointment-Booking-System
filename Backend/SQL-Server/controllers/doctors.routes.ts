@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import log from "../logs";
 import { AuthMiddleware } from "../middlewares/Auth.middle";
 import { rbac } from "../middlewares/Role.middle";
-
+ 
 DoctorRouter.get('/',(req,res) : void=>{
     res.send({msg:"Doctors route working fine",slot:uuidv4()})
 })
@@ -24,17 +24,22 @@ DoctorRouter.get('/slots',async (req,res)=>{
 })
 
 DoctorRouter.post('/openslot',AuthMiddleware,rbac(['doctor']),async (req,res)=>{
+     let {userID,status,email,role,startTime,price} =req.body 
+    
+    
     try {
-        // res.send({msg:'working fine .....'})
 
-        let {StartTime,EndTime,userID,price} = req.body;
-        // console.log(UserID)
-        let slot = await db.Slot.create({
-            SlotID:uuidv4(),
-            DoctorID:userID,
-            StartTime:new Date(),
-            EndTime:new Date()
-        })
+console.log(userID,status,email,role,startTime,price)
+ 
+ 
+let slot = await db.Slot.create({
+        SlotID:uuidv4(),
+        DoctorID:userID,
+        StartTime:new Date(startTime),
+        EndTime:new Date(new Date().setHours(new Date().getHours()+1)),
+        Price:price
+    })
+    
 
         res.send({msg:"Slot Has been Created ",slot})
 
