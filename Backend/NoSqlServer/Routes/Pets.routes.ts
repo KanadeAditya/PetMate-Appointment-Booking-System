@@ -91,7 +91,7 @@ PetRouter.get("/sort",rbac(["admin"]), async (req:Request , res:Response)=>{
 
 
 
-PetRouter.get('/allpets',rbac(["admin"]),async (req : Request , res : Response)=>{
+PetRouter.get('/allpets',async (req : Request , res : Response)=>{
     try {
         let pet =await PetModel.find()
         res.status(200).send(pet)
