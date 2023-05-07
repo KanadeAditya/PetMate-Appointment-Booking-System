@@ -39,3 +39,10 @@ document.querySelector("form").addEventListener("submit", (e) => {
             }
         })
 })
+
+let doc=document.getElementById("doclogin")
+doc.addEventListener("click",(e)=>{
+    window.location.href=`https://salmon-coral-gear.cyclic.app/doctor/check?type=login`
+     
+})
+ 
