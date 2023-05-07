@@ -21,8 +21,20 @@ PetRouter.get('/',(req:Request , res: Response)=>{
 // There is a minor error in Pet Schema it is not adding all the fields by default , like Medical history is not getting added by default 
 PetRouter.post('/add',rbac(['customer']),async (req : Request , res : Response)=>{
     try {
-        // let {name,userID,type} = req.body
-        let pet = new PetModel(req.body);
+        let {name,type,breed,userID,Owner_Name,weight,DoB} = req.body
+        if(!name||!type||!breed||!userID||!Owner_Name||!weight||!DoB){
+            res.send({msg:"Please Provide all the details"})
+            return 
+        }
+        let pet = new PetModel({
+            name,
+            type,
+            breed,
+            OwnerID:userID,
+            Owner_Name,
+            weight,
+            DoB
+        });
         await pet.save();
         res.status(200).send({msg : 'Pet has been Added',pet});
     } catch (error) {
@@ -44,7 +56,7 @@ PetRouter.patch("/update/:id",rbac(["customer","doctor"]),async (req:Request, re
 })
 
 //pets delete
-PetRouter.patch("/delete/:id",rbac(["customer","doctor"]),async (req:Request, res:Response) =>{
+PetRouter.patch("/delete/:id",rbac(["customer","admin"]),async (req:Request, res:Response) =>{
     try {
         let pet = await PetModel.findByIdAndDelete({_id:req.params.id});
         res.status(200).send({msg:"pet has been delete" , pet})
@@ -56,7 +68,7 @@ PetRouter.patch("/delete/:id",rbac(["customer","doctor"]),async (req:Request, re
 
 
 // get medical history of pet
-PetRouter.get("/history/:id",rbac(["customer","doctor"]), async (req:Request , res:Response)=>{
+PetRouter.get("/medhistory/:id",rbac(["customer","doctor"]), async (req:Request , res:Response)=>{
     try {
         let medicalHistory= await PetModel.find({_id:req.params.id},{Medical_history:1})
         res.status(200).send({msg:"medical history of pet" , medicalHistory})
@@ -102,6 +114,26 @@ PetRouter.get('/allpets',async (req : Request , res : Response)=>{
 })
 
 
-
+PetRouter.patch("/medhistory/:id",rbac(["doctor"]), async (req:Request , res:Response)=>{
+    try {
+        let {userID,type,prescriptions,symptoms,Diagnosis} = req.body;
+        if(!type||!prescriptions||!symptoms||!Diagnosis){
+            res.send({msg:"Please provide all the details"})
+        }
+        let medicalHistory= await PetModel.findByIdAndUpdate({_id:req.params.id},{
+            Medical_history:{
+                doctorID : userID,
+                type,
+                prescriptions,
+                symptoms,
+                Diagnosis
+            }
+        })
+        res.status(200).send({msg:"medical history of pet has been updated" , medicalHistory: {type,prescriptions,symptoms,Diagnosis}})
+    } catch (error) {
+        log.info('GET pets/history',error)
+        res.status(500).send({ msg: "something went wrong in route", error: error.message });
+    }
+})
 
 export {PetRouter}
