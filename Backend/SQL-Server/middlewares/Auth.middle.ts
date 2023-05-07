@@ -25,7 +25,6 @@ const AuthMiddleware = async(req: Request, res: Response, next: NextFunction) =>
     }else{
       const decodedToken = jwt.verify(token, `${process.env.JWT_SECRET_KEY}`) as TokenPayload;
       const { userID  , status ,email ,role} = decodedToken;
-      // console.log(decodedToken)
       if(status){
         req.body.userID = userID; 
         req.body.status = status; 
