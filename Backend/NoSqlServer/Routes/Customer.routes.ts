@@ -5,6 +5,7 @@ import { CustomerModel } from "../Models/Customer.Schema";
 import log from "../logs";
 import { AuthMiddleware } from "../Middlewares/Auth.middle"
 import { rbac } from "../Middlewares/Role.middle";
+import { DoctorModel } from "../Models/Doctor.model";
 // import nodemailer from "nodemailer"
 // import otpGenerator from "otp-generator"
 
@@ -158,4 +159,48 @@ CustomerRouter.get('/checkrbac',AuthMiddleware,rbac(['customer']),(req : Request
 //Start Writing Routes from here use rbac and authmiddleware if you want 
 
 
+
+
+
+
+//<<<<<<<<<<<<<<<<<<----------------------find doctors--------------------->>>>>>>>>>>>>>>>>>>>>>>
+
+CustomerRouter.get("/search",async (req:Request,res:Response)=>{
+  const name = req.query.name ? String(req.query.name) : '';
+  try {
+    const regex = new RegExp(name, 'i'); // create a case-insensitive regular expression
+        let doctor=await DoctorModel.find({name: {$regex: regex}});
+        console.log(doctor)
+        res.send("ok")
+  } catch (error) {
+    console.log(error)
+    res.send("err")
+  }
+})
+
+
+//<<<<<<<<<<<<<<-----------------------sort and find------------------>>>>>>>>>>>>>>>
+
+
+
+CustomerRouter.get("/department",async (req:Request,res:Response)=>{
+  const name = req.query.name ? String(req.query.name) : '';
+  const Sort = req.query.sort ? req.query.sort :  -1;
+
+  try {
+    // const regex = new RegExp(name, 'i'); // create a case-insensitive regular expression
+    let doctor
+    if(Sort=="1"){
+
+        doctor=await DoctorModel.aggregate([{$match: {name:{$regex: name, $options: 'i' }}},{$sort:{name:1}}])
+    }else{
+      doctor=await DoctorModel.aggregate([{$match: {name:{$regex: name, $options: 'i' }}},{$sort:{name:-1}}])
+    }
+        console.log(doctor)
+        res.send("ok")
+  } catch (error) {
+    console.log(error)
+    res.send("err")
+  }
+})
 export { CustomerRouter };
