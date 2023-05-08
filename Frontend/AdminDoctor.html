@@ -50,7 +50,7 @@
 
 </html>
 <script>
-const baseURL="https://gorgeous-ruby-jaguar.cyclic.app/doctor/alldoctor"
+import {baseUrl} from "./scripts/baseUrl.js";
 
 async function getdata() {
     try {
@@ -121,6 +121,13 @@ async function getdata() {
   chk.addEventListener('change', () => {
     document.body.classList.toggle('dark');
   });
+
+  window.addEventListener("load", () => {
+    if ((petmate.role !== "admin"||"superadmin")|| !petmate.status) {
+      window.location.href = "index.html"
+    }
+  })
+
 </script>
 
 <script src="./scripts/adminSidebar.js"></script>
