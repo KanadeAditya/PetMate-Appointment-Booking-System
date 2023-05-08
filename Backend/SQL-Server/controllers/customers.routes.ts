@@ -5,7 +5,7 @@ import log from "../logs";
 import { Request,Response } from "express";
 import { AuthMiddleware } from "../middlewares/Auth.middle";
 import { rbac } from "../middlewares/Role.middle";
-import { Where } from "sequelize/types/utils";
+// import { Where } from "sequelize/types/utils";
 import { Op } from "sequelize";
 
 const CustomerRouter = Router()
