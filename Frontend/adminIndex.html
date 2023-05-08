@@ -40,24 +40,34 @@
 
     <div class="card">
       <a href="./Adminpets.html">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSezG-LKWFfgKpoDm4dqM5QNP_sK1Ewac2ouw&usqp=CAU" alt="Pet Thumbnail">
-        <button><h3>Pets</h3></button>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSezG-LKWFfgKpoDm4dqM5QNP_sK1Ewac2ouw&usqp=CAU"
+          alt="Pet Thumbnail">
+        <button>
+          <h3>Pets</h3>
+        </button>
       </a>
     </div>
 
 
     <div class="card">
       <a href="./AdminDoctor.html">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAPoGTQC6zCPFdl6Dj0-Am19NgjmPaM9verg&usqp=CAU" alt="Doctor Thumbnail">
-        <button><h3>Doctors</h3></button>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAPoGTQC6zCPFdl6Dj0-Am19NgjmPaM9verg&usqp=CAU"
+          alt="Doctor Thumbnail">
+        <button>
+          <h3>Doctors</h3>
+        </button>
       </a>
     </div>
 
 
     <div class="card">
       <a href="./AdminUsers.html">
-        <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aHVtYW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" alt="User Thumbnail">
-        <button><h3>Users</h3></button>
+        <img
+          src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aHVtYW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+          alt="User Thumbnail">
+        <button>
+          <h3>Users</h3>
+        </button>
       </a>
     </div>
   </div>
@@ -74,6 +84,24 @@
     document.body.classList.toggle('dark');
   });
 
-</script>
-<script src="./scripts/adminSidebar.js"></script>
 
+  let petmate = JSON.parse(localStorage.getItem("petmate"))
+      let con1 = petmate.role === "superadmin" && petmate.status
+      let con2 = petmate.role === "admin" && petmate.status
+      window.addEventListener("load", () => {
+          if(con1 || con2){
+            console.log(petmate)
+          }else{
+            window.location.href = 'index.html'
+          }
+      })
+
+
+
+</script>
+<script type="module" src="./scripts/adminSidebar.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/dist/jwt-decode.min.js"></script>
+<script>
+  const decodedToken = jwt_decode(token);
+  console.log(decodedToken);
+</script> -->

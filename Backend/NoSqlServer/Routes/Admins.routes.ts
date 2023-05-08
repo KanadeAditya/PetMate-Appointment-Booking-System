@@ -8,6 +8,7 @@ import { rbac } from "../Middlewares/Role.middle";
 import { DoctorModel } from "../Models/Doctor.model";
 import { CustomerModel } from "../Models/Customer.Schema";
 import { PetModel } from "../Models/Pet.model";
+import { BlacklistToken } from "../Middlewares/blacklisting";
 
 require("dotenv").config();
 
@@ -78,7 +79,7 @@ AdminRouter.post("/login", async (req: Request, res: Response) => {
     }
 
     const acessToken = jwt.sign(
-      { userID: admin._id,status: admin.status, role: admin.role, email: admin.email },
+      { userID: admin._id, status: admin.status, role: admin.role, email: admin.email },
       process.env.JWT_SECRET_KEY as string,
       {
         expiresIn: "1 day",
@@ -100,7 +101,7 @@ AdminRouter.post("/login", async (req: Request, res: Response) => {
 
     res
       .status(200)
-      .send({msg:"login successful",userID: admin._id, name: admin.name, email: admin.email, acessToken, refToken ,role : 'admin'});
+      .send({ msg: "login successful", userID: admin._id, name: admin.name, email: admin.email, acessToken, refToken, role: 'admin' });
   } catch (err) {
     log.info("POST /admin/login error", err.message);
     res
@@ -122,6 +123,21 @@ AdminRouter.get("/checkauth", AuthMiddleware, (req: Request, res: Response) => {
       .send({ msg: "something went wrong in auth", error: error.message });
   }
 });
+
+AdminRouter.post('/logout', async (req: Request, res: Response) => {
+  try {
+    let { at, rt } = req.body
+
+    await BlacklistToken(`${at}`, 86400)
+    await BlacklistToken(`${rt}`, 86400)
+    // await client.set("refToken","blacklisted")
+    res.status(200).send({ msg: "Logout Successfull", at, rt })
+
+  } catch (error) {
+    log.error(`Customer-Logout-error :- ${error}`)
+    res.status(500).send({ msg: "something went wrong in auth", error });
+  }
+})
 
 // Checking if Role Based Access is working fine
 AdminRouter.get(
@@ -147,8 +163,8 @@ AdminRouter.get(
 // AdminRouter.use(rbac(['admin']))
 
 AdminRouter.get(
-  "/alldoctors",
-  rbac(["admin"]),
+  "/alldoctors", AuthMiddleware,
+  rbac(["admin", "superadmin"]),
   async (req: Request, res: Response) => {
     try {
       let doctors = await DoctorModel.find({}, { password: 0 });
@@ -162,11 +178,26 @@ AdminRouter.get(
 );
 
 AdminRouter.get(
-  "/allcustomers",
-  rbac(["admin"]),
+  "/allcustomers", AuthMiddleware,
+  rbac(["admin", "superadmin"]),
   async (req: Request, res: Response) => {
     try {
       let customer = await CustomerModel.find({}, { password: 0 });
+      res.status(200).send(customer);
+    } catch (error) {
+      res
+        .status(500)
+        .send({ msg: "something went wrong in auth", error: error.message });
+    }
+  }
+);
+
+AdminRouter.get(
+  "/allpets", AuthMiddleware,
+  rbac(["admin", "superadmin"]),
+  async (req: Request, res: Response) => {
+    try {
+      let customer = await PetModel.find({}, { password: 0 });
       res.status(200).send(customer);
     } catch (error) {
       res
@@ -208,7 +239,7 @@ AdminRouter.patch(
     let id = req.params.id;
     try {
       let adm = await CustomerModel.findOne({ _id: id });
-      let ad=await CustomerModel.findByIdAndUpdate({_id:id},{status:!adm.status})
+      let ad = await CustomerModel.findByIdAndUpdate({ _id: id }, { status: !adm.status })
       console.log(ad);
       res.status(200).send({ msg: "Admin Registered successfully", ad });
     } catch (err) {
@@ -236,7 +267,7 @@ AdminRouter.patch(
     let id = req.params.id;
     try {
       let adm = await PetModel.findOne({ _id: id });
-      let ad=await PetModel.findByIdAndUpdate({_id:id},{"status.stat":!adm.status.stat})
+      let ad = await PetModel.findByIdAndUpdate({ _id: id }, { "status.stat": !adm.status.stat })
       console.log(ad);
       res.status(200).send({ msg: "Admin Registered successfully", ad });
     } catch (err) {
@@ -263,7 +294,7 @@ AdminRouter.patch(
     let id = req.params.id;
     try {
       let adm = await DoctorModel.findOne({ _id: id });
-      let ad=await DoctorModel.findByIdAndUpdate({_id:id},{status:!adm.status})
+      let ad = await DoctorModel.findByIdAndUpdate({ _id: id }, { status: !adm.status })
       console.log(ad);
       res.status(200).send({ msg: "Admin Registered successfully", ad });
     } catch (err) {

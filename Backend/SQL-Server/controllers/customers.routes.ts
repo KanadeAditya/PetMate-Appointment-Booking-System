@@ -97,5 +97,55 @@ CustomerRouter.patch('/close/:SlotID',(req : Request,res : Response) : void=>{
     }
 })
 
+
+
+// CustomerRouter.get("/search",async (req:Request,res:Response)=>{
+//     const name = req.query.name ? String(req.query.name) : '';  
+
+//     try {
+//         console.log(name)
+        
+//            let slots = await db.Slot.findAll({
+//             where: {
+//                 DoctorID: {
+//                     [Op.substring]: `${name}`,
+//                     [Op.like]: `%${name}%`
+//                 }
+//               }
+//          })
+//         console.log(slots)
+//         res.send("ok")
+//     } catch (error) {
+//         console.log(error)
+//         res.send("err")
+//     }
+// })
+
+
+// CustomerRouter.get("/departmant",async (req:Request,res:Response)=>{
+//     const name = req.query.name ? String(req.query.name) : '';  
+// const sort=req.query.sort ? String(req.query.sort) : '';  
+//     try {
+//         console.log(name)
+        
+//            let slots = await db.Slot.findAll({
+//             where: {
+//                 DoctorID: {
+//                     [Op.substring]: `${name}`,
+//                     [Op.like]: `%${name}%`
+//                 }
+//               },
+//               order: [
+//                 ['Price', `${sort ? sort : "ASC"}`]
+//               ]
+//          })
+//         console.log(slots)
+//         res.send("ok")
+//     } catch (error) {
+//         console.log(error)
+//         res.send("err")
+//     }
+// })
+
 export default CustomerRouter
 

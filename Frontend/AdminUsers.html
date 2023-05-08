@@ -42,22 +42,69 @@
 
 
   <div class="main">
-
-    <div class="card">
-      <h2>Dr. Jane Doe</h2>
-      <p>Email: janedoe@example.com</p>
-      <p>UPRN: 123456</p>
-      <p>Speciality: Cardiology</p>
-      <button class="active-btn">Active</button>
-      <button class="inactive-btn">Inactive</button>
-    </div>
-
-
+    <!-- users data append here -->
   </div>
 
 </body>
 
 </html>
+<script type="module">
+  import {baseUrl} from "./scripts/baseUrl.js";
+
+  const token = localStorage.getItem('token');
+
+fetch(`${baseUrl}admin/allcustomers`, {
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    "Authorization": token // Add the Authorization header with the token value
+  },
+})
+  .then(res => res.json())
+  .then((res) => {
+    // console.log(res, "ok")
+    displayUsers(res)
+  });
+
+function displayUsers(data) {
+  const main = document.querySelector('.main');
+  data.forEach(user => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const heading = document.createElement('h2');
+    heading.textContent = user.name;
+    card.appendChild(heading);
+
+    const email = document.createElement('p');
+    email.textContent = `Email: ${user.email}`;
+    card.appendChild(email);
+
+    const activeBtn = document.createElement('button');
+    activeBtn.classList.add('active-btn');
+    activeBtn.textContent = 'Active';
+    card.appendChild(activeBtn);
+
+    const inactiveBtn = document.createElement('button');
+    inactiveBtn.classList.add('inactive-btn');
+    inactiveBtn.textContent = 'Inactive';
+    card.appendChild(inactiveBtn);
+
+    if (user.status === 'active') {
+      card.classList.add('active');
+    } else {
+      card.classList.add('inactive');
+    }
+
+    main.appendChild(card);
+  });
+}
+
+
+
+</script>
+
+
 <script>
   const chk = document.getElementById('chk');
 
@@ -65,5 +112,8 @@
     document.body.classList.toggle('dark');
   });
 
+
 </script>
-<script src="./scripts/adminSidebar.js"></script>
+
+
+<script type="module" src="./scripts/adminSidebar.js"></script>

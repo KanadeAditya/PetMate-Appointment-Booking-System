@@ -42,23 +42,81 @@
 
 
   <div class="main">
-    
-    <div class="card">
-      <h2>Dr. Jane Doe</h2>
-      <p>Email: janedoe@example.com</p>
-      <p>Degree: MD</p>
-      <p>UPRN: 123456</p>
-      <p>Speciality: Cardiology</p>
-      <button class="active-btn">Active</button>
-      <button class="inactive-btn">Inactive</button>
-    </div>
 
-
+    <!-- All cards append here -->
   </div>
 
 </body>
 
 </html>
+<script type="module">
+  import { baseUrl } from "./scripts/baseUrl.js";
+
+
+  const token = localStorage.getItem('token');
+
+fetch(`${baseUrl}admin/alldoctors`, {
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    "Authorization": token // Add the Authorization header with the token value
+  },
+})
+  .then(res => res.json())
+  .then((res) => {
+    // console.log(res, "ok")
+    displayDoctors(res)
+  });
+
+    
+  // Function to create and append doctor cards to the main div
+  function displayDoctors(data) {
+    const mainDiv = document.querySelector('.main');
+
+    data.forEach(doctor => {
+
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      const name = document.createElement('h2');
+      name.textContent = doctor.name;
+      card.appendChild(name);
+
+      const email = document.createElement('p');
+      email.textContent = `Email: ${doctor.email}`;
+      card.appendChild(email);
+
+      const degree = document.createElement('p');
+      degree.textContent = `Degree: ${doctor.degree.join(' ')}`;
+      card.appendChild(degree);
+
+      const uprn = document.createElement('p');
+      uprn.textContent = `UPRN: ${doctor.UPRN}`;
+      card.appendChild(uprn);
+
+      const speciality = document.createElement('p');
+      speciality.textContent = `Speciality: ${doctor.speciality.join(' ')}`;
+      card.appendChild(speciality);
+
+      const activeBtn = document.createElement('button');
+      activeBtn.classList.add('active-btn');
+      activeBtn.textContent = 'Active';
+      card.appendChild(activeBtn);
+
+      const inactiveBtn = document.createElement('button');
+      inactiveBtn.classList.add('inactive-btn');
+      inactiveBtn.textContent = 'Inactive';
+      card.appendChild(inactiveBtn);
+
+      // Append the card to the main div
+      mainDiv.appendChild(card);
+    });
+  }
+
+
+
+</script>
+
 <script>
   const chk = document.getElementById('chk');
 
@@ -67,4 +125,5 @@
   });
 
 </script>
-<script src="./scripts/adminSidebar.js"></script>
+
+<script type="module" src="./scripts/adminSidebar.js"></script>

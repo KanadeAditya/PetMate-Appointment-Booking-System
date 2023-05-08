@@ -43,74 +43,133 @@
 
   <div class="main">
 
-    <div class="card">
-      <h2>Pet Name</h2>
-      <p>Type: <span class="type">Pet Type</span></p>
-      <p>Breed: <span class="breed">Pet Breed</span></p>
-      <p>Owner ID: <span class="owner-id">Owner ID</span></p>
-      <p>Owner Name: <span class="owner-name">Owner Name</span></p>
-      <p>Weight: <span class="weight">Pet Weight</span></p>
-      <p>Date of Birth: <span class="dob">Pet Date of Birth</span></p>
-      <p>Vaccination: <span class="vaccination">Pet Vaccination</span></p>
-      <p>Medical History: <span class="medical-history">Pet Medical History</span></p>
-      <button class="active-btn">Active</button>
-      <button class="inactive-btn">Inactive</button>
-    </div>
-
-    <div class="card">
-      <h2>Pet Name</h2>
-      <p>Type: <span class="type">Pet Type</span></p>
-      <p>Breed: <span class="breed">Pet Breed</span></p>
-      <p>Owner ID: <span class="owner-id">Owner ID</span></p>
-      <p>Owner Name: <span class="owner-name">Owner Name</span></p>
-      <p>Weight: <span class="weight">Pet Weight</span></p>
-      <p>Date of Birth: <span class="dob">Pet Date of Birth</span></p>
-      <p>Vaccination: <span class="vaccination">Pet Vaccination</span></p>
-      <p>Medical History: <span class="medical-history">Pet Medical History</span></p>
-      <button class="active-btn">Active</button>
-      <button class="inactive-btn">Inactive</button>
-    </div>
-
-    <div class="card">
-      <h2>Pet Name</h2>
-      <p>Type: <span class="type">Pet Type</span></p>
-      <p>Breed: <span class="breed">Pet Breed</span></p>
-      <p>Owner ID: <span class="owner-id">Owner ID</span></p>
-      <p>Owner Name: <span class="owner-name">Owner Name</span></p>
-      <p>Weight: <span class="weight">Pet Weight</span></p>
-      <p>Date of Birth: <span class="dob">Pet Date of Birth</span></p>
-      <p>Vaccination: <span class="vaccination">Pet Vaccination</span></p>
-      <p>Medical History: <span class="medical-history">Pet Medical History</span></p>
-      <button class="active-btn">Active</button>
-      <button class="inactive-btn">Inactive</button>
-    </div>
-
-    <div class="card">
-      <h2>Pet Name</h2>
-      <p>Type: <span class="type">Pet Type</span></p>
-      <p>Breed: <span class="breed">Pet Breed</span></p>
-      <p>Owner ID: <span class="owner-id">Owner ID</span></p>
-      <p>Owner Name: <span class="owner-name">Owner Name</span></p>
-      <p>Weight: <span class="weight">Pet Weight</span></p>
-      <p>Date of Birth: <span class="dob">Pet Date of Birth</span></p>
-      <p>Vaccination: <span class="vaccination">Pet Vaccination</span></p>
-      <p>Medical History: <span class="medical-history">Pet Medical History</span></p>
-      <button class="active-btn">Active</button>
-      <button class="inactive-btn">Inactive</button>
-    </div>
-
 
   </div>
 
 </body>
 
 </html>
-<script>
-  const chk = document.getElementById('chk');
+<script type="module">
 
-  chk.addEventListener('change', () => {
-    document.body.classList.toggle('dark');
+import {baseUrl} from "./scripts/baseUrl.js";
+
+
+const main = document.querySelector('.main');
+
+const token = localStorage.getItem('token');
+
+fetch(`${baseUrl}admin/allpets`, {
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    "Authorization": token // Add the Authorization header with the token value
+  },
+})
+  .then(res => res.json())
+  .then((res) => {
+    // console.log(res, "ok")
+    displayPets(res)
   });
 
+
+
+function displayPets(petsData) {
+  petsData.forEach(pet => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const heading = document.createElement('h2');
+    heading.textContent = pet.name;
+    card.appendChild(heading);
+
+    const type = document.createElement('span');
+    type.classList.add('type');
+    type.textContent = pet.type;
+    const typeP = document.createElement('p');
+    typeP.innerHTML = `Type: `;
+    typeP.appendChild(type);
+    card.appendChild(typeP);
+
+    const breed = document.createElement('span');
+    breed.classList.add('breed');
+    breed.textContent = pet.breed;
+    const breedP = document.createElement('p');
+    breedP.innerHTML = `Breed: `;
+    breedP.appendChild(breed);
+    card.appendChild(breedP);
+
+    const ownerId = document.createElement('span');
+    ownerId.classList.add('owner-id');
+    ownerId.textContent = pet.ownerId;
+    const ownerIdP = document.createElement('p');
+    ownerIdP.innerHTML = `Owner ID: `;
+    ownerIdP.appendChild(ownerId);
+    card.appendChild(ownerIdP);
+
+    const ownerName = document.createElement('span');
+    ownerName.classList.add('owner-name');
+    ownerName.textContent = pet.ownerName;
+    const ownerNameP = document.createElement('p');
+    ownerNameP.innerHTML = `Owner Name: `;
+    ownerNameP.appendChild(ownerName);
+    card.appendChild(ownerNameP);
+
+    const weight = document.createElement('span');
+    weight.classList.add('weight');
+    weight.textContent = pet.weight;
+    const weightP = document.createElement('p');
+    weightP.innerHTML = `Weight: `;
+    weightP.appendChild(weight);
+    card.appendChild(weightP);
+
+    const dob = document.createElement('span');
+    dob.classList.add('dob');
+    dob.textContent = pet.dob;
+    const dobP = document.createElement('p');
+    dobP.innerHTML = `Date of Birth: `;
+    dobP.appendChild(dob);
+    card.appendChild(dobP);
+
+    const vaccination = document.createElement('span');
+    vaccination.classList.add('vaccination');
+    vaccination.textContent = pet.vaccination;
+    const vaccinationP = document.createElement('p');
+    vaccinationP.innerHTML = `Vaccination: `;
+    vaccinationP.appendChild(vaccination);
+    card.appendChild(vaccinationP);
+
+    const medicalHistory = document.createElement('span');
+    medicalHistory.classList.add('medical-history');
+    medicalHistory.textContent = pet.medicalHistory;
+    const medicalHistoryP = document.createElement('p');
+    medicalHistoryP.innerHTML = `Medical History: `;
+    medicalHistoryP.appendChild(medicalHistory);
+    card.appendChild(medicalHistoryP);
+
+    const activeBtn = document.createElement('button');
+    activeBtn.classList.add('active-btn');
+    activeBtn.textContent = 'Active';
+    card.appendChild(activeBtn);
+
+    const inactiveBtn = document.createElement('button');
+    inactiveBtn.classList.add('inactive-btn');
+    inactiveBtn.textContent = 'Inactive';
+    card.appendChild(inactiveBtn);
+
+    main.appendChild(card);
+  });
+}
+
 </script>
-<script src="./scripts/adminSidebar.js"></script>
+<script type="module" src="./scripts/adminSidebar.js"></script>
+
+<!-- dark mode script -->
+<script>
+    const chk = document.getElementById('chk');
+
+chk.addEventListener('change', () => {
+  document.body.classList.toggle('dark');
+});
+
+
+</script>
