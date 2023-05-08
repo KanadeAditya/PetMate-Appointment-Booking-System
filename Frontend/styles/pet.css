@@ -169,3 +169,13 @@ body{
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     z-index: 9999;
 }
+
+
+#addpets{
+    padding: 8px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: #333652;
+    color: white;
+}

@@ -1,17 +1,8 @@
-// import baseURL from "./baseURL.js";
+// import {baseURL} from "./baseURL.js";
 
 console.log("doctors detail page")
 let docsCont=document.getElementById("pets_details");
-let depObj={
-    1:"a",
-    2:"b",
-    3:"c",
-    4:"d",
-    5:"e",
-    6:"f",
-    7:"g"
-   
-}
+
 
 let pets_arr=[
     {
@@ -28,30 +19,34 @@ let pets_arr=[
 ]
 console.log(pets_arr)
 
+// http://localhost:1010/pets/allpets
+// `${baseURL}/pets/allpets`
+
 let token=localStorage.getItem("token")
-// getdata();
-renderdata(pets_arr);
+getdata();
+// renderdata(pets_arr);
 
 async function getdata() {
     try {
-        const res = await fetch('http://localhost:1010/pets/allpets',{
+        const res = await fetch(`http://localhost:1010/pets/allpets`,{
             method: 'GET',
             headers: { 'Content-Type': 'application/json',
-            "Authorization":token
+            "Authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2OTg5YWU2Yjg5ZjdjMzExMDAxZmQiLCJzdGF0dXMiOnRydWUsInJvbGUiOiJjdXN0b21lciIsImVtYWlsIjoicmFtQGdtYWlsLmNvbSIsImlhdCI6MTY4MzUzMDYxMywiZXhwIjoxNjgzNjE3MDEzfQ.oUFZmelsorLH8X_m6S2hdC_Sx5C8w6eKAL2vh2n3Vus"
          },
             
         });
         let data = await res.json();
-        // data = data.doctor;
+       
         console.log(data);
-        // renderdata(data);
+    
+        renderdata(data);
     } catch (error) {
         console.log(error.message);
     }
 }
 
 
-{/* <p style=${elem.status?"color:green":"color:red"}>${elem.status?"Available":"Currently Unavailable"}</p> */}
+
 function renderdata(arr) {
     docsCont.innerHTML="";
     docsCont.innerHTML=arr.map((elem)=>{
@@ -61,14 +56,15 @@ function renderdata(arr) {
                 <div class="doc-profile">
 
                     <div class="doc-desc">
-                        <h2>${elem.name}</h2>
+                        <h2>Name :${elem.name}</h2>
                         <h4>Type: ${elem.type}</h4>
                         <p>Breed: ${elem.breed}</p>
-                        <h4>Owner Name: ${elem.owner_name}</h4>
-                        <p style="color:white">${elem._id}<p>
-                        <p>Weight:${elem.weight}</p>
-                        <h3>Vaccination :-</h3>
-                        <p>is_vaccinated:${"YEs"}</p>
+                        <h4>Owner Name: ${elem.Owner_Name}</h4>
+                       
+                        <p>Weight:${elem.weight.value}</p>
+                        <p>DOB:${new Date(elem.DoB).getDate()}-${new Date(elem.DoB).getMonth()}-${new Date(elem.DoB).getFullYear()}</p>
+                      
+                      
                         
                    </div>
                 </div>
@@ -77,10 +73,14 @@ function renderdata(arr) {
                 
                 <div class="doc-book">
                     <div class="select-app">
-                        <form>
+                        <form data-id=${elem._id} >
                             <div>
                                 <label>Vaccination  Date:</label>
-                                <input type="text" id="datepicker" />
+                                <input type="date" id="datepicker" placeholder="Enter Date" required />
+                                </div>
+                                <div>
+                                <label>Vaccination  Name:</label>
+                                <input type="text" id="vaccinationname" placeholder="Enter name" required />
                                 </div>
                                 <div>
                                 <label>Vaccination Status :</label>
@@ -96,9 +96,14 @@ function renderdata(arr) {
 
                        
                        
-                        <button class="asd" id="popup-button">Medical History content</button>
+                        <button class="asd" id="popup-button">Medical History </button>
                         <div class="popup" id="popup-content">
-                            <p>This is the pop-up content!</p>
+                            <p>DoctorsID: </p>
+                            <p>type: </p>
+                            <p>prescriptions: </p>
+                            <p>symptoms</p>
+                            
+                            <p>Diagnosis</p>
                             <button id="close-button">Close</button>
                         </div>
 
@@ -124,58 +129,123 @@ function renderdata(arr) {
         `
     }).join("");
 
-    // let forms=document.querySelectorAll(".select-app>form");
-
-    $(function() {
-        $("#datepicker").datepicker();
-        });
+    
 
        document.querySelector("form").addEventListener("submit",(e)=>{
         e.preventDefault();
         console.log("heelo")
         let date=document.getElementById("datepicker").value
         let vaccinationstatus=document.getElementById("status").value
-        console.log(date,vaccinationstatus)
+        let vaccinationname=document.getElementById("vaccinationname").value
+        console.log(date,vaccinationstatus,vaccinationname)
+        let update_data={
+            date,vaccinationstatus,vaccinationname
+        }
+        let petid=e.target.dataset.id
+        console.log(e.target.dataset.id,petid)
+        localStorage.setItem("petid",petid)
+        updatevaccination(update_data)
+        // console.log(elem._id)
        })
 
+ const updateButton = document.getElementById('update-button');
+const updateForm = document.getElementById('update-form');
+const cancelButton = document.getElementById('cancel-button');
 
-       
+updateButton.addEventListener('click', () => {
+    updateForm.classList.remove('hidden');
+  });
+  
+  cancelButton.addEventListener('click', () => {
+    updateForm.classList.add('hidden');
+  });
+  
+  updateForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+   
+    updateForm.classList.add('hidden');
+  });
+  
+  
+  
+  const popupButton = document.getElementById('popup-button');
+          const popupContent = document.getElementById('popup-content');
+          const closeButton = document.getElementById('close-button');
+          
+          popupButton.addEventListener('click', () => {
+              popupContent.style.display = 'block';
+          });
+          
+          closeButton.addEventListener('click', () => {
+              popupContent.style.display = 'none';
+          });
+  
+ 
         
         
 }
 
 
-const updateButton = document.getElementById('update-button');
-const updateForm = document.getElementById('update-form');
-const cancelButton = document.getElementById('cancel-button');
-
-updateButton.addEventListener('click', () => {
-  updateForm.classList.remove('hidden');
-});
-
-cancelButton.addEventListener('click', () => {
-  updateForm.classList.add('hidden');
-});
-
-updateForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  // code to update cart details
-  updateForm.classList.add('hidden');
-});
 
 
 
-const popupButton = document.getElementById('popup-button');
-		const popupContent = document.getElementById('popup-content');
-		const closeButton = document.getElementById('close-button');
+
+
+let id=localStorage.getItem("petid")
+console.log(id)
+
+
+async function updatevaccination(update_date) {
+    try {
+        const res = await fetch(`${baseURL}`,{
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json',
+            "Authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2OTg5YWU2Yjg5ZjdjMzExMDAxZmQiLCJzdGF0dXMiOnRydWUsInJvbGUiOiJjdXN0b21lciIsImVtYWlsIjoicmFtQGdtYWlsLmNvbSIsImlhdCI6MTY4MzUzMDYxMywiZXhwIjoxNjgzNjE3MDEzfQ.oUFZmelsorLH8X_m6S2hdC_Sx5C8w6eKAL2vh2n3Vus"
+        },
+        body: JSON.stringify(update_date)
+            
+        });
+        let data = await res.json();
+        // data = data.doctor;
+        console.log(data);
+        // renderdata(data);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+// const updateButton = document.getElementById('update-button');
+// const updateForm = document.getElementById('update-form');
+// const cancelButton = document.getElementById('cancel-button');
+
+// updateButton.addEventListener('click', () => {
+//   updateForm.classList.remove('hidden');
+// });
+
+// cancelButton.addEventListener('click', () => {
+//   updateForm.classList.add('hidden');
+// });
+
+// updateForm.addEventListener('submit', (event) => {
+//   event.preventDefault();
+//   // code to update cart details
+//   updateForm.classList.add('hidden');
+// });
+
+
+
+// const popupButton = document.getElementById('popup-button');
+// 		const popupContent = document.getElementById('popup-content');
+// 		const closeButton = document.getElementById('close-button');
 		
-		popupButton.addEventListener('click', () => {
-			popupContent.style.display = 'block';
-		});
+// 		popupButton.addEventListener('click', () => {
+// 			popupContent.style.display = 'block';
+// 		});
 		
-		closeButton.addEventListener('click', () => {
-			popupContent.style.display = 'none';
-		});
+// 		closeButton.addEventListener('click', () => {
+// 			popupContent.style.display = 'none';
+// 		});
 
 
 
@@ -207,3 +277,18 @@ const popupButton = document.getElementById('popup-button');
 //         getdata();
 //     }
 // })
+
+
+
+
+let addpets=document.getElementById("addpets")
+
+addpets.addEventListener("click",()=>{
+    window.open("./addpet.html");
+})
+
+
+
+//  <p style="color:white">${elem._id}<p>
+
+console.log(new Date(Date.now()) )
