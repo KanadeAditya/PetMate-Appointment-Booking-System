@@ -27,7 +27,7 @@ document.querySelector("#footer").innerHTML=`
     </div>
     <div data-aos="fade-left" data-aos-duration="1000" id="footer-right">
         <div id="logo-div">
-            <img alt="logo" src="./Files/united-states-pets-small-business-logo-design-removebg-preview.png"/>
+            <img alt="logo" src="./Files/petmate-logo.png"/>
         </div>
         <div id="socials">
             <p><i class="fa-brands fa-facebook"></i></p>
