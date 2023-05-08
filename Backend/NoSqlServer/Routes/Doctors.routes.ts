@@ -5,6 +5,7 @@ import { DoctorModel } from "../Models/Doctor.model";
 import log from "../logs";
 import { AuthMiddleware } from "../Middlewares/Auth.middle"
 import { rbac } from "../Middlewares/Role.middle";
+import { BlacklistToken } from "../Middlewares/blacklisting"; 
 
 require('dotenv').config();
 
@@ -91,7 +92,20 @@ DoctorRouter.post("/login", async (req: Request, res: Response) => {
   }
 });
 
+DoctorRouter.post('/logout',async (req: Request, res: Response) => {
+  try {
+    let {at,rt} = req.body
+    
+    await BlacklistToken(`${at}`,86400)
+    await BlacklistToken(`${rt}`,86400)
+    // await client.set("refToken","blacklisted")
+    res.status(200).send({msg:"Logout Successfull",at,rt})
 
+  } catch (error) {
+    log.error(`Customer-Logout-error :- ${error}`)
+    res.status(500).send({ msg: "something went wrong in auth", error });
+  }
+})
 
 //Route for adding qulification and speciality of doctor
 DoctorRouter.patch('/speciality',AuthMiddleware,rbac(['doctor']), async (req: Request, res: Response) => {
