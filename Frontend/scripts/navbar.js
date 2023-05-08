@@ -1,5 +1,3 @@
-
-
 document.querySelector("#navbar").innerHTML = `
 <div id="nav-cont">
 
@@ -9,15 +7,14 @@ document.querySelector("#navbar").innerHTML = `
 
     <div data-aos="zoom-out" data-aos-duration="1000" id="nav-logo">
         <div id="nav-img">
-            <img alt="Logo" src="./Files/united-states-pets-small-business-logo-design-removebg-preview.png"/>
+            <img alt="Logo" src="./Files/petmate-logo.png"/>
         </div>
     </div>
 
-    <div data-aos="zoom-out" data-aos-duration="1000" id="nav-menu">
+    <div data-aos="zoom-out"  id="nav-menu">
         <li id="book-app">Book an appointment</li>
         <li id="find-doc">Find Doctors</li>
         <li>About</li>
-        <li>xyz</li>
     </div>
 
     <div data-aos="zoom-out" data-aos-duration="1000" id="nav-user-details">

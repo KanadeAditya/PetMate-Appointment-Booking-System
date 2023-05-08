@@ -6,10 +6,10 @@ import { Request,Response } from "express";
 import { AuthMiddleware } from "../middlewares/Auth.middle";
 import { rbac } from "../middlewares/Role.middle";
 // import { Where } from "sequelize/types/utils";
-import { Op } from "sequelize";
+import { Op,QueryTypes, Sequelize } from "sequelize";
 
 const CustomerRouter = Router()
-CustomerRouter.use(AuthMiddleware,rbac(['customer']))
+// CustomerRouter.use(AuthMiddleware,rbac(['customer']))
 
 CustomerRouter.get('/',(req : Request,res : Response) : void=>{
     try {
@@ -99,53 +99,43 @@ CustomerRouter.patch('/close/:SlotID',(req : Request,res : Response) : void=>{
 
 
 
-// CustomerRouter.get("/search",async (req:Request,res:Response)=>{
-//     const name = req.query.name ? String(req.query.name) : '';  
+CustomerRouter.get('/viewslots',async(req : Request,res : Response) : Promise<void>=>{
+    try {
 
-//     try {
-//         console.log(name)
+
         
-//            let slots = await db.Slot.findAll({
-//             where: {
-//                 DoctorID: {
-//                     [Op.substring]: `${name}`,
-//                     [Op.like]: `%${name}%`
-//                 }
-//               }
-//          })
-//         console.log(slots)
-//         res.send("ok")
-//     } catch (error) {
-//         console.log(error)
-//         res.send("err")
-//     }
-// })
+        let allslots = await db.sequelize.query(
+            'SELECT SlotID, Price, CurrentStatus,DoctorID ,StartTime, EndTime  FROM `appointment-slots`.Slots where DoctorID = ?',
+                {
+                replacements: ['6456b5dceeabbd044d1f6233','1234'],
+                type: QueryTypes.SELECT
+                }
+            )
 
-
-// CustomerRouter.get("/departmant",async (req:Request,res:Response)=>{
-//     const name = req.query.name ? String(req.query.name) : '';  
-// const sort=req.query.sort ? String(req.query.sort) : '';  
-//     try {
-//         console.log(name)
-        
-//            let slots = await db.Slot.findAll({
-//             where: {
-//                 DoctorID: {
-//                     [Op.substring]: `${name}`,
-//                     [Op.like]: `%${name}%`
-//                 }
-//               },
-//               order: [
-//                 ['Price', `${sort ? sort : "ASC"}`]
-//               ]
-//          })
-//         console.log(slots)
-//         res.send("ok")
-//     } catch (error) {
-//         console.log(error)
-//         res.send("err")
-//     }
-// })
+        // let formatted = allslots.reduce((accumulator: any, currentValue: any) => {
+        //     let {DoctorID} = currentValue
+        //     if(accumulator[ `${DoctorID}`]){
+        //         accumulator.DoctorID.push(currentValue)
+        //     }else{
+        //         accumulator.DoctorID.push(currentValue)
+        //     }
+        //     return accumulator ;
+        //   }, {});
+        let red = allslots?.reduce((accumulator: any, currentValue: any) => {
+            let temp = currentValue.DoctorID;
+                if (!accumulator[temp]) {
+                    accumulator[temp] = [];
+                }
+            accumulator[temp].push(currentValue);
+            return accumulator;
+          }, {})
+        //   console.log(red)
+        res.send(red )
+    } catch (error) {
+        log.error( `customer-Route GET /viewslots -Error ${error}`)
+        res.send({msg:'Something Went Wrong',error})
+    }
+})
 
 export default CustomerRouter
 
