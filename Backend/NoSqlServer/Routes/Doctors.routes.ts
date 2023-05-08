@@ -97,22 +97,27 @@ DoctorRouter.post("/login", async (req: Request, res: Response) => {
 DoctorRouter.patch('/speciality',AuthMiddleware,rbac(['doctor']), async (req: Request, res: Response) => {
   try {
     const { degree, speciality } = req.body;
+    let obj={};
+    if(degree)obj["degree"]=degree;
+    if(speciality)obj["speciality"]=speciality;
+    
 
-    if (!degree || !speciality) {
-      res.status(400).send({ msg: 'Please provide all the details correctly' });
-      return;
-    }
+    // if (!degree || !speciality) {
+    //   res.status(400).send({ msg: 'Please provide all the details correctly' });
+    //   return;
+    // }
 
     const doctorId = req.body.userID;
-    const update = { degree, speciality };
+    // const update = { degree, speciality };
 
     const updatedDoctor = await DoctorModel.findByIdAndUpdate(
-      doctorId,
-      update,
+      {_id:doctorId},
+      // update,
+      obj,
       { new: true } // to get the updated document in the response
     );
-
-    res.status(200).send({ msg: 'Doctor info updated successfully', doctor: updatedDoctor });
+res.send("ok")
+    // res.status(200).send({ msg: 'Doctor info updated successfully', doctor: updatedDoctor });
   } catch (err) {
     res.status(500).send({ msg: 'Something went wrong in updating doctor info', error: err.message });
   }

@@ -6,11 +6,13 @@ main{
     justify-content: space-between;
     /* margin-top: 2%;
     margin-bottom: 2%; */
+    margin-top: 35px;
+    height: 350px;
 }
 
 .left{
     width: 20%;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,9 +21,9 @@ main{
 
 .right{
     width: 80%;
-    background-color: aquamarine;
-    display: grid;
-    grid-template-columns: repeat(1);
+    /* background-color: aquamarine; */
+    /* display: grid;
+    grid-template-columns: repeat(4,1fr); */
 }
 
 .img{
@@ -29,4 +31,14 @@ main{
     height: 80px;
     background-color: pink;
     border-radius: 50%;  
+}
+
+.right button{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    padding: 8px;
+    background-color: #333652;
+    color: #FAD02C;
+    cursor: pointer;
+    font-size: large;
 }
