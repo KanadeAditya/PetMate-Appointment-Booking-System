@@ -5,8 +5,9 @@ import log from "../logs";
 import { Request,Response } from "express";
 import { AuthMiddleware } from "../middlewares/Auth.middle";
 import { rbac } from "../middlewares/Role.middle";
-// import { Where } from "sequelize/types/utils";
+import { Where } from "sequelize/types/utils";
 import { Op,QueryTypes, Sequelize } from "sequelize";
+import { DoctorModel } from "../model-doctor";
 
 const CustomerRouter = Router()
 // CustomerRouter.use(AuthMiddleware,rbac(['customer']))
@@ -97,40 +98,56 @@ CustomerRouter.patch('/close/:SlotID',(req : Request,res : Response) : void=>{
     }
 })
 
+interface ans {
+    _id : string;
+    name:string;
+    UPRN : string;
+    degree : Array<string>;
+    speciality : Array<string>;
+    slots ?: object
+    _doc ?:any
+}
 
 
 CustomerRouter.get('/viewslots',async(req : Request,res : Response) : Promise<void>=>{
     try {
-
-
         
+        let arr  = await DoctorModel.find({},{_id:1,name:1,speciality:1,degree:1,UPRN:1})
+        console.log(arr)
         let allslots = await db.sequelize.query(
-            'SELECT SlotID, Price, CurrentStatus,DoctorID ,StartTime, EndTime  FROM `appointment-slots`.Slots where DoctorID = ?',
+            'SELECT SlotID, Price, CurrentStatus,DoctorID ,StartTime, EndTime  FROM `appointment-slots`.Slots ',
                 {
-                replacements: ['6456b5dceeabbd044d1f6233','1234'],
+               
                 type: QueryTypes.SELECT
                 }
             )
 
-        // let formatted = allslots.reduce((accumulator: any, currentValue: any) => {
-        //     let {DoctorID} = currentValue
-        //     if(accumulator[ `${DoctorID}`]){
-        //         accumulator.DoctorID.push(currentValue)
-        //     }else{
-        //         accumulator.DoctorID.push(currentValue)
-        //     }
-        //     return accumulator ;
-        //   }, {});
-        let red = allslots?.reduce((accumulator: any, currentValue: any) => {
-            let temp = currentValue.DoctorID;
-                if (!accumulator[temp]) {
-                    accumulator[temp] = [];
+            // let formatted = allslots.reduce((accumulator: any, currentValue: any) => {
+            //     let {DoctorID} = currentValue
+            //     if(accumulator[ `${DoctorID}`]){
+            //         accumulator.DoctorID.push(currentValue)
+            //     }else{
+            //         accumulator.DoctorID.push(currentValue)
+            //     }
+            //     return accumulator ;
+            //   }, {});
+            let red = allslots?.reduce((accumulator: any, currentValue: any) => {
+                let temp = currentValue.DoctorID;
+                    if (!accumulator[temp]) {
+                        accumulator[temp] = [];
+                    }
+                accumulator[temp].push(currentValue);
+                return accumulator;
+            }, {})
+            let array : any = []
+            arr.forEach((ele : any,ind)=>{
+                let temp:ans = {
+                    ...ele._doc, slot : red[ele._id] || []
                 }
-            accumulator[temp].push(currentValue);
-            return accumulator;
-          }, {})
-        //   console.log(red)
-        res.send(red )
+                array.push(temp)
+            })
+
+        res.send(array )
     } catch (error) {
         log.error( `customer-Route GET /viewslots -Error ${error}`)
         res.send({msg:'Something Went Wrong',error})
