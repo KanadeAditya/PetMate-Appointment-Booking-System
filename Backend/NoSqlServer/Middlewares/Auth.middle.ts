@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 require('dotenv').config();
+import { isBlacklisted } from './blacklisting';
 
 interface TokenPayload {
   userID: string;
@@ -20,6 +21,11 @@ declare global {
 const AuthMiddleware = async(req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.headers.authorization;
+    if(await isBlacklisted(token)){
+      res.send({msg:"Access Denied"})
+      return
+    }
+
     if(!token){
       res.status(401).send({"msg": "login again"})
     }else{
