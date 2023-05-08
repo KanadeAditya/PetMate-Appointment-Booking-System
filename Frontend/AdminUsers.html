@@ -49,6 +49,8 @@
 
 </html>
 <script>
+  import {baseUrl} from "./scripts/baseUrl.js";
+
   const usersData = [
   {
     name: "Dr. Jane Doe",
@@ -112,6 +114,13 @@ displayUsers(usersData);
   chk.addEventListener('change', () => {
     document.body.classList.toggle('dark');
   });
+
+  window.addEventListener("load", () => {
+    if ((petmate.role !== "admin"||"superadmin")|| !petmate.status) {
+      window.location.href = "index.html"
+    }
+  })
+
 
 </script>
 

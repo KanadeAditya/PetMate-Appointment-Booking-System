@@ -50,6 +50,9 @@
 
 </html>
 <script>
+
+import {baseUrl} from "./scripts/baseUrl.js";
+
   const petData =[
   {
   name: "Buddy",
@@ -102,8 +105,6 @@ const main = document.querySelector('.main');
 
 //fetch part will come here
 displayPets(petData)
-
-
 
 
 
@@ -204,4 +205,11 @@ function displayPets(petsData) {
 chk.addEventListener('change', () => {
   document.body.classList.toggle('dark');
 });
+
+window.addEventListener("load", () => {
+    if ((petmate.role !== "admin"||"superadmin")|| !petmate.status) {
+      window.location.href = "index.html"
+    }
+  })
+
 </script>

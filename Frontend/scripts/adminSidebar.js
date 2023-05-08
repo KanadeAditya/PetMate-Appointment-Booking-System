@@ -1,4 +1,6 @@
 
+import {baseUrl} from "./baseUrl.js";
+
 const sidebar = document.createElement('div');
 sidebar.classList.add('sidebar');
 
