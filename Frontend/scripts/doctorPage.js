@@ -1,4 +1,4 @@
-import { sqlUrl } from "./baseUrl.js";
+import { sqlUrl,baseUrl } from "./baseUrl.js";
 
 let petmate =JSON.parse(localStorage.getItem("petmate"))
 
@@ -25,6 +25,7 @@ document.getElementById("CreateSlot").addEventListener("click",(e)=>{
           '<label><input type="radio" name="slot-duration" value="60">1 hour</label>' +
           '<label><input type="radio" name="slot-duration" value="30">30 minutes</label>',
         confirmButtonText: 'Book',
+        showCancelButton:true,
         preConfirm: () => {
           const slotDurationInput = Swal.getPopup().querySelector('input[name="slot-duration"]:checked');
           const date= Swal.getPopup().querySelector("#date").value
@@ -35,16 +36,7 @@ document.getElementById("CreateSlot").addEventListener("click",(e)=>{
           }
     
           return { slotDuration: slotDurationInput.value, date, price };
-        },
-        didClose: () => {
-            const validationMessage = Swal.getValidationMessage();
-            if (validationMessage) {
-              Swal.fire({
-                icon: 'error',
-                title: validationMessage
-              });
-            }
-          }
+        }
       }).then((result) => {
         if (result.isConfirmed) {
           const slotDuration = result.value.slotDuration;
@@ -56,7 +48,7 @@ document.getElementById("CreateSlot").addEventListener("click",(e)=>{
           }
 
           // console.log(slotDetails)
-          console.log(localStorage.getItem("token"))
+          // console.log(localStorage.getItem("token"))
     
           // Here, you can call a function to book the slot with the provided slot duration
           fetch(sqlUrl+"doctors/openslot",{
@@ -88,39 +80,27 @@ document.getElementById("viewSlots").addEventListener("click",()=>{
 document.getElementById("addDegree").addEventListener("click",()=>{
   Swal.fire({
     title: 'Add degree',
-    html:
-      '<input id="degree" type="text">',
+    input:"text",
     confirmButtonText: 'Add',
-    preConfirm: () => {
-      const degree= Swal.getPopup().querySelector("#degree").value
-
+    showCancelButton:true,
+    preConfirm: (degree) => {
+      
       if (!degree) {
         Swal.showValidationMessage('Please add degree');
       }
 
       return { degree};
-    },
-    didClose: () => {
-        const validationMessage = Swal.getValidationMessage();
-        if (validationMessage) {
-          Swal.fire({
-            icon: 'error',
-            title: validationMessage
-          });
-        }
-      }
+    }
   }).then((result) => {
     if (result.isConfirmed) {
 
-
-      // Here, you can call a function to book the slot with the provided slot duration
-      fetch(baseUrl+"doctors/bookslot",{
-        method:"PATCh",
+      fetch(baseUrl+"doctors/speciality",{
+        method:"PATCH",
         headers:{ 
             'Content-Type': 'application/json',
             "Authorization": localStorage.getItem("token")
          },
-         body:JSON.stringify(result.value.degree)
+         body:JSON.stringify({degree:result.value.degree})
       })
       .then(res=>res.json())
       .then((res)=>{
@@ -135,7 +115,37 @@ document.getElementById("addDegree").addEventListener("click",()=>{
 
 //add speciality
 document.getElementById("speciality").addEventListener("click",()=>{
-     
+  Swal.fire({
+    title: 'Add speciality',
+    input:"text",
+    confirmButtonText: 'Add',
+    showCancelButton:true,
+    preConfirm: (speciality) => {
+
+      if (!speciality) {
+        Swal.showValidationMessage('Please add speciality');
+      }
+
+      return { speciality};
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      fetch(baseUrl+"doctors/speciality",{
+        method:"PATCH",
+        headers:{ 
+            'Content-Type': 'application/json',
+            "Authorization": localStorage.getItem("token")
+         },
+         body:JSON.stringify({speciality:result.value.speciality})
+      })
+      .then(res=>res.json())
+      .then((res)=>{
+        console.log(res)  
+      })
+
+    }
+  });
 })
 
 
