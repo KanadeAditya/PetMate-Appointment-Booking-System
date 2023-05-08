@@ -117,3 +117,36 @@ DoctorRouter.patch('/close/:SlotID',(req : Request,res : Response) : void=>{
 
 
 export default DoctorRouter
+
+
+
+// DoctorRouter.get('/myslots', async (req:Request, res:Response) => {
+//     let token = req.headers?.authorization as string
+//     let secret = process.env.JWT_SECRET_KEY as string
+//     try {
+//        let decoded = jwt.verify(token,secret) 
+//        let userID = (decoded as JwtPayload).userID;       
+//        console.log(decoded)
+
+//        // let {userID} = req.body
+//        let slots = await db.Slot.findAll({
+//            where :{
+//                DoctorID :userID
+               
+//             }
+//         })
+//         // res.send({msg:'working fine .....'})
+
+//         res.send(slots)
+
+//     } catch (error: any) {
+//         log.info(`doctors/slots -error :- ${error.message}`)
+//         res.send(error)
+//     }
+// })
+
+
+
+// import jwt,{JwtPayload} from "jsonwebtoken";
+// import * as dotenv from "dotenv"
+// dotenv.config()

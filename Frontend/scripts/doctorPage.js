@@ -1,4 +1,12 @@
-import baseUrl from "./baseUrl.js";
+import { sqlUrl } from "./baseUrl.js";
+
+let petmate =JSON.parse(localStorage.getItem("petmate"))
+
+window.addEventListener("load",()=>{
+  if(petmate.role!=="doctor" || !petmate.status){
+    window.location.href="index.html"
+  }
+})
 
 document.getElementById("name").innerText=localStorage.getItem("userName");
 document.getElementById("email").innerText=localStorage.getItem("email");
@@ -42,15 +50,16 @@ document.getElementById("CreateSlot").addEventListener("click",(e)=>{
           const slotDuration = result.value.slotDuration;
 
           const slotDetails={
-            price:result.value.price,
+            Price:result.value.price,
             date:result.value.date,
             slotDuration,
           }
 
-          console.log(slotDetails)
+          // console.log(slotDetails)
+          console.log(localStorage.getItem("token"))
     
           // Here, you can call a function to book the slot with the provided slot duration
-          fetch(baseUrl+"doctors/bookslot",{
+          fetch(sqlUrl+"doctors/openslot",{
             method:"POST",
             headers:{ 
                 'Content-Type': 'application/json',
@@ -60,7 +69,7 @@ document.getElementById("CreateSlot").addEventListener("click",(e)=>{
           })
           .then(res=>res.json())
           .then((res)=>{
-            console.log(res)
+            console.log(res,"ok")
           })
 
         }

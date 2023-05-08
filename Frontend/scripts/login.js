@@ -1,5 +1,5 @@
 
-import baseUrl from "./baseUrl.js";
+import {baseUrl} from "./baseUrl.js";
 
 document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -30,7 +30,9 @@ document.querySelector("form").addEventListener("submit", (e) => {
                 })
 
                 localStorage.setItem("token",res.acessToken)
+                localStorage.setItem("refreshToken",res.refToken)
                 localStorage.setItem("userName",res.name)
+                localStorage.setItem("petmate",JSON.stringify({userId:res.userID,role:res.role,name:res.name,status:true }))
             } else {
                 Swal.fire({
                     icon: 'error',

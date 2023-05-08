@@ -1,5 +1,5 @@
 
-import baseUrl from "./baseUrl.js";
+import {baseUrl} from "./baseUrl.js";
 
 document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -10,7 +10,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
 
     console.log(usersDetail)
 
-    fetch(`${baseUrl}admin/login`, {
+    fetch(`${baseUrl}doctors/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(usersDetail)
@@ -29,8 +29,9 @@ document.querySelector("form").addEventListener("submit", (e) => {
                 })
 
                 localStorage.setItem("token",res.acessToken)
-                localStorage.setItem("email",res.email)
+                localStorage.setItem("refreshToken",res.refToken)
                 localStorage.setItem("userName",res.name)
+                localStorage.setItem("petmate",JSON.stringify({userId:res.userID,role:res.role,name:res.name,status:true }))
             } else {
                 Swal.fire({
                     icon: 'error',

@@ -1,2 +1,3 @@
 let baseUrl="http://localhost:1010/";
-export default baseUrl;
+let sqlUrl="http://localhost:8080/"
+export {baseUrl,sqlUrl};
