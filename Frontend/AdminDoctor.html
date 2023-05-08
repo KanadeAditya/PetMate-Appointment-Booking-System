@@ -43,17 +43,7 @@
 
   <div class="main">
     
-    <div class="card">
-      <h2>Dr. Jane Doe</h2>
-      <p>Email: janedoe@example.com</p>
-      <p>Degree: MD</p>
-      <p>UPRN: 123456</p>
-      <p>Speciality: Cardiology</p>
-      <button class="active-btn">Active</button>
-      <button class="inactive-btn">Inactive</button>
-    </div>
-
-
+    <!-- All cards append here -->
   </div>
 
 </body>
@@ -65,6 +55,74 @@
   chk.addEventListener('change', () => {
     document.body.classList.toggle('dark');
   });
+
+
+  // Sample data for doctors
+const doctors = [
+  {
+    name: "Dr. Jane Doe",
+    email: "janedoe@example.com",
+    degree: "MD",
+    uprn: "123456",
+    speciality: "Cardiology"
+  },
+  {
+    name: "Dr. John Smith",
+    email: "johnsmith@example.com",
+    degree: "MBBS",
+    uprn: "789012",
+    speciality: "Pediatrics"
+  }
+];
+
+// Function to create and append doctor cards to the main div
+function displayDoctors() {
+  const mainDiv = document.querySelector('.main');
+
+  // Loop through the doctors array
+  for (const doctor of doctors) {
+    // Create a card element for the current doctor
+    const card = document.createElement('div');
+    card.classList.add('card');
+    
+    // Add the doctor's details to the card
+    const name = document.createElement('h2');
+    name.textContent = doctor.name;
+    card.appendChild(name);
+
+    const email = document.createElement('p');
+    email.textContent = `Email: ${doctor.email}`;
+    card.appendChild(email);
+
+    const degree = document.createElement('p');
+    degree.textContent = `Degree: ${doctor.degree}`;
+    card.appendChild(degree);
+
+    const uprn = document.createElement('p');
+    uprn.textContent = `UPRN: ${doctor.uprn}`;
+    card.appendChild(uprn);
+
+    const speciality = document.createElement('p');
+    speciality.textContent = `Speciality: ${doctor.speciality}`;
+    card.appendChild(speciality);
+
+    const activeBtn = document.createElement('button');
+    activeBtn.classList.add('active-btn');
+    activeBtn.textContent = 'Active';
+    card.appendChild(activeBtn);
+
+    const inactiveBtn = document.createElement('button');
+    inactiveBtn.classList.add('inactive-btn');
+    inactiveBtn.textContent = 'Inactive';
+    card.appendChild(inactiveBtn);
+
+    // Append the card to the main div
+    mainDiv.appendChild(card);
+  }
+}
+
+// Call the displayDoctors function to display the doctors' cards
+displayDoctors();
 
 </script>
 <script src="./scripts/adminSidebar.js"></script>
