@@ -49,62 +49,27 @@
 </body>
 
 </html>
-<script>
+<script type="module">
 
 import {baseUrl} from "./scripts/baseUrl.js";
 
-  const petData =[
-  {
-  name: "Buddy",
-  type: "Dog",
-  breed: "Golden Retriever",
-  ownerId: "1234",
-  ownerName: "John Doe",
-  weight: "70 lbs",
-  dob: "05/01/2018",
-  vaccination: "Up to date",
-  medicalHistory: "None"
-},
-{
-  name: "Buddy",
-  type: "Dog",
-  breed: "Golden Retriever",
-  ownerId: "1234",
-  ownerName: "John Doe",
-  weight: "70 lbs",
-  dob: "05/01/2018",
-  vaccination: "Up to date",
-  medicalHistory: "None"
-},
-{
-  name: "Buddy",
-  type: "Dog",
-  breed: "Golden Retriever",
-  ownerId: "1234",
-  ownerName: "John Doe",
-  weight: "70 lbs",
-  dob: "05/01/2018",
-  vaccination: "Up to date",
-  medicalHistory: "None"
-},
-{
-  name: "Buddy",
-  type: "Dog",
-  breed: "Golden Retriever",
-  ownerId: "1234",
-  ownerName: "John Doe",
-  weight: "70 lbs",
-  dob: "05/01/2018",
-  vaccination: "Up to date",
-  medicalHistory: "None"
-}
-
-  ] 
 
 const main = document.querySelector('.main');
 
-//fetch part will come here
-displayPets(petData)
+const token = localStorage.getItem('token');
+
+fetch(`${baseUrl}admin/allpets`, {
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    "Authorization": token // Add the Authorization header with the token value
+  },
+})
+  .then(res => res.json())
+  .then((res) => {
+    // console.log(res, "ok")
+    displayPets(res)
+  });
 
 
 
@@ -196,7 +161,7 @@ function displayPets(petsData) {
 }
 
 </script>
-<script src="./scripts/adminSidebar.js"></script>
+<script type="module" src="./scripts/adminSidebar.js"></script>
 
 <!-- dark mode script -->
 <script>
@@ -206,10 +171,5 @@ chk.addEventListener('change', () => {
   document.body.classList.toggle('dark');
 });
 
-window.addEventListener("load", () => {
-    if ((petmate.role !== "admin"||"superadmin")|| !petmate.status) {
-      window.location.href = "index.html"
-    }
-  })
 
 </script>

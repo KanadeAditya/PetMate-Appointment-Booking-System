@@ -107,7 +107,8 @@ DoctorRouter.patch('/speciality',AuthMiddleware,rbac(['doctor']), async (req: Re
     const update = { degree, speciality };
 
     const updatedDoctor = await DoctorModel.findByIdAndUpdate(
-      doctorId,
+      // doctorId,
+      {_id:doctorId},
       update,
       { new: true } // to get the updated document in the response
     );
