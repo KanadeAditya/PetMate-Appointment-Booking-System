@@ -86,13 +86,22 @@
 
 
   let petmate = JSON.parse(localStorage.getItem("petmate"))
+      let con1 = petmate.role === "superadmin" && petmate.status
+      let con2 = petmate.role === "admin" && petmate.status
+      window.addEventListener("load", () => {
+          if(con1 || con2){
+            console.log(petmate)
+          }else{
+            window.location.href = 'index.html'
+          }
+      })
 
-  window.addEventListener("load", () => {
-    if ((petmate.role !== "admin"||"superadmin")|| !petmate.status) {
-      window.location.href = "index.html"
-    }
-  })
 
 
 </script>
-<script src="./scripts/adminSidebar.js"></script>
+<script type="module" src="./scripts/adminSidebar.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/dist/jwt-decode.min.js"></script>
+<script>
+  const decodedToken = jwt_decode(token);
+  console.log(decodedToken);
+</script> -->

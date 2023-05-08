@@ -25,7 +25,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
                     showConfirmButton: false,
                     timer: 1000,
                     willClose: () => {
-                        window.open("home.html")
+                        window.open("adminIndex.html")
                       }
                 })
 
