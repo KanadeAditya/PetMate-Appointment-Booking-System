@@ -51,27 +51,24 @@
 <script type="module">
   import {baseUrl} from "./scripts/baseUrl.js";
 
-  const usersData = [
-  {
-    name: "Dr. Jane Doe",
-    email: "janedoe@example.com",
-    status: "active",
-  },
-  {
-    name: "Dr. John Smith",
-    email: "johnsmith@example.com",
-    status: "inactive",
-  },
-  {
-    name: "Dr. Sarah Lee",
-    email: "sarahlee@example.com",
-    status: "active",
-  },
-];
+  const token = localStorage.getItem('token');
 
-function displayUsers(users) {
+fetch(`${baseUrl}admin/allcustomers`, {
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    "Authorization": token // Add the Authorization header with the token value
+  },
+})
+  .then(res => res.json())
+  .then((res) => {
+    // console.log(res, "ok")
+    displayUsers(res)
+  });
+
+function displayUsers(data) {
   const main = document.querySelector('.main');
-  users.forEach(user => {
+  data.forEach(user => {
     const card = document.createElement('div');
     card.classList.add('card');
 
@@ -103,7 +100,7 @@ function displayUsers(users) {
   });
 }
 
-displayUsers(usersData);
+
 
 </script>
 

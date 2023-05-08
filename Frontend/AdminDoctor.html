@@ -53,13 +53,22 @@
   import { baseUrl } from "./scripts/baseUrl.js";
 
 
-  fetch(`${baseUrl}doctors`, {
-    method: "GET",
-  }).then(res => res.json())
-    .then((data) => {
-      console.log(data)
-      // displayDoctors(data)
-    })
+  const token = localStorage.getItem('token');
+
+fetch(`${baseUrl}admin/alldoctors`, {
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    "Authorization": token // Add the Authorization header with the token value
+  },
+})
+  .then(res => res.json())
+  .then((res) => {
+    // console.log(res, "ok")
+    displayDoctors(res)
+  });
+
+    
   // Function to create and append doctor cards to the main div
   function displayDoctors(data) {
     const mainDiv = document.querySelector('.main');

@@ -147,8 +147,8 @@ AdminRouter.get(
 // AdminRouter.use(rbac(['admin']))
 
 AdminRouter.get(
-  "/alldoctors",
-  rbac(["admin"]),
+  "/alldoctors", AuthMiddleware,
+  rbac(["admin", "superadmin"]),
   async (req: Request, res: Response) => {
     try {
       let doctors = await DoctorModel.find({}, { password: 0 });
@@ -162,11 +162,26 @@ AdminRouter.get(
 );
 
 AdminRouter.get(
-  "/allcustomers",
-  rbac(["admin"]),
+  "/allcustomers", AuthMiddleware,
+  rbac(["admin", "superadmin"]),
   async (req: Request, res: Response) => {
     try {
       let customer = await CustomerModel.find({}, { password: 0 });
+      res.status(200).send(customer);
+    } catch (error) {
+      res
+        .status(500)
+        .send({ msg: "something went wrong in auth", error: error.message });
+    }
+  }
+);
+
+AdminRouter.get(
+  "/allpets", AuthMiddleware,
+  rbac(["admin", "superadmin"]),
+  async (req: Request, res: Response) => {
+    try {
+      let customer = await PetModel.find({}, { password: 0 });
       res.status(200).send(customer);
     } catch (error) {
       res
