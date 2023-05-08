@@ -42,7 +42,7 @@
 
 
   <div class="main">
-    
+
     <!-- All cards append here -->
   </div>
 
@@ -50,42 +50,31 @@
 
 </html>
 <script>
-  const chk = document.getElementById('chk');
+const baseURL="https://gorgeous-ruby-jaguar.cyclic.app/doctor/alldoctor"
 
-  chk.addEventListener('change', () => {
-    document.body.classList.toggle('dark');
-  });
+async function getdata() {
+    try {
+        const res = await fetch(baseURL+`doctor/alldoctor`);
+        let data = await res.json();
+        data = data.doctor;
+        console.log(data);
+        displayDoctors(data);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 
-  // Sample data for doctors
-const doctors = [
-  {
-    name: "Dr. Jane Doe",
-    email: "janedoe@example.com",
-    degree: "MD",
-    uprn: "123456",
-    speciality: "Cardiology"
-  },
-  {
-    name: "Dr. John Smith",
-    email: "johnsmith@example.com",
-    degree: "MBBS",
-    uprn: "789012",
-    speciality: "Pediatrics"
-  }
-];
-
-// Function to create and append doctor cards to the main div
-function displayDoctors() {
+  // Function to create and append doctor cards to the main div
+  function displayDoctors(data) {
   const mainDiv = document.querySelector('.main');
 
-  // Loop through the doctors array
-  for (const doctor of doctors) {
-    // Create a card element for the current doctor
+  data.forEach(doctor => {
+
     const card = document.createElement('div');
     card.classList.add('card');
-    
-    // Add the doctor's details to the card
+
+
     const name = document.createElement('h2');
     name.textContent = doctor.name;
     card.appendChild(name);
@@ -95,15 +84,15 @@ function displayDoctors() {
     card.appendChild(email);
 
     const degree = document.createElement('p');
-    degree.textContent = `Degree: ${doctor.degree}`;
+    egree.textContent = `Degree: ${doctor.degree.join(' ')}`;
     card.appendChild(degree);
 
     const uprn = document.createElement('p');
-    uprn.textContent = `UPRN: ${doctor.uprn}`;
+    uprn.textContent = `UPRN: ${doctor.UPRN}`;
     card.appendChild(uprn);
 
     const speciality = document.createElement('p');
-    speciality.textContent = `Speciality: ${doctor.speciality}`;
+    speciality.textContent = `Speciality: ${doctor.speciality.join(' ')}`;
     card.appendChild(speciality);
 
     const activeBtn = document.createElement('button');
@@ -118,11 +107,20 @@ function displayDoctors() {
 
     // Append the card to the main div
     mainDiv.appendChild(card);
-  }
+  });
 }
 
-// Call the displayDoctors function to display the doctors' cards
-displayDoctors();
+
+
 
 </script>
+
+<script>
+  const chk = document.getElementById('chk');
+
+  chk.addEventListener('change', () => {
+    document.body.classList.toggle('dark');
+  });
+</script>
+
 <script src="./scripts/adminSidebar.js"></script>
