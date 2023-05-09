@@ -10,7 +10,7 @@ import { Op,QueryTypes, Sequelize } from "sequelize";
 import { DoctorModel } from "../model-doctor";
 
 const CustomerRouter = Router()
-// CustomerRouter.use(AuthMiddleware,rbac(['customer']))
+CustomerRouter.use(AuthMiddleware,rbac(['customer']))
 
 CustomerRouter.get('/',(req : Request,res : Response) : void=>{
     try {
@@ -18,6 +18,26 @@ CustomerRouter.get('/',(req : Request,res : Response) : void=>{
     } catch (error) {
         log.error('customer-Route-Error',error)
         res.send({msg:'Something Went Wrong',error})
+    }
+})
+
+CustomerRouter.get('/slots/:id', async (req:Request, res:Response) => {
+    try {
+        // res.send({msg:'working fine .....'})
+        // let {userID} = req.body
+        let {id} = req.params
+        let slots = await db.Slot.findAll({
+           where :{
+                DoctorID : id,
+                CurrentStatus : 'open'
+           }
+        })
+
+        res.send(slots)
+
+    } catch (error: any) {
+        log.info(`doctors/slots -error :- ${error.message}`)
+        res.send(error)
     }
 })
 
@@ -98,39 +118,20 @@ CustomerRouter.patch('/close/:SlotID',(req : Request,res : Response) : void=>{
     }
 })
 
-interface ans {
-    _id : string;
-    name:string;
-    UPRN : string;
-    degree : Array<string>;
-    speciality : Array<string>;
-    slots ?: object
-    _doc ?:any
-}
-
 
 CustomerRouter.get('/viewslots',async(req : Request,res : Response) : Promise<void>=>{
     try {
         
         let arr  = await DoctorModel.find({},{_id:1,name:1,speciality:1,degree:1,UPRN:1})
-        console.log(arr)
+        // console.log(arr)
         let allslots = await db.sequelize.query(
             'SELECT SlotID, Price, CurrentStatus,DoctorID ,StartTime, EndTime  FROM `appointment-slots`.Slots ',
-                {
-               
-                type: QueryTypes.SELECT
+                { 
+                    type: QueryTypes.SELECT
                 }
             )
 
-            // let formatted = allslots.reduce((accumulator: any, currentValue: any) => {
-            //     let {DoctorID} = currentValue
-            //     if(accumulator[ `${DoctorID}`]){
-            //         accumulator.DoctorID.push(currentValue)
-            //     }else{
-            //         accumulator.DoctorID.push(currentValue)
-            //     }
-            //     return accumulator ;
-            //   }, {});
+        
             let red = allslots?.reduce((accumulator: any, currentValue: any) => {
                 let temp = currentValue.DoctorID;
                     if (!accumulator[temp]) {
@@ -141,13 +142,13 @@ CustomerRouter.get('/viewslots',async(req : Request,res : Response) : Promise<vo
             }, {})
             let array : any = []
             arr.forEach((ele : any,ind)=>{
-                let temp:ans = {
+                let temp = {
                     ...ele._doc, slot : red[ele._id] || []
                 }
                 array.push(temp)
             })
 
-        res.send(array )
+        res.send(array)
     } catch (error) {
         log.error( `customer-Route GET /viewslots -Error ${error}`)
         res.send({msg:'Something Went Wrong',error})
