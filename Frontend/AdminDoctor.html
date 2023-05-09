@@ -104,21 +104,64 @@ fetch(`${baseUrl}admin/alldoctors`, {
       speciality.textContent = `Speciality: ${doctor.speciality.join(' ')}`;
       card.appendChild(speciality);
 
+      const isActive = doctor.status;
+
       const activeBtn = document.createElement('button');
       activeBtn.classList.add('active-btn');
       activeBtn.textContent = 'Active';
+      activeBtn.setAttribute('data-petId', doctor._id);
       card.appendChild(activeBtn);
 
       const inactiveBtn = document.createElement('button');
       inactiveBtn.classList.add('inactive-btn');
       inactiveBtn.textContent = 'Inactive';
+      inactiveBtn.setAttribute('data-petId', doctor._id);
       card.appendChild(inactiveBtn);
+
+      // hide/show the buttons based on the pet's status
+      if (isActive) {
+        activeBtn.style.display = 'none';
+        inactiveBtn.style.display = 'block';
+
+        inactiveBtn.addEventListener('click', (e) => {
+          blocking(doctor._id);
+          location.reload()
+          alert("This user is inactive now")
+        });
+      } else {
+        activeBtn.style.display = 'block';
+        inactiveBtn.style.display = 'none';
+        activeBtn.addEventListener('click', (e) => {
+          blocking(doctor._id);
+          location.reload()
+          alert("This user is active now")
+        });
+      }
 
       // Append the card to the main div
       mainDiv.appendChild(card);
     });
   }
 
+
+  function blocking(doctorId) {
+    // console.log(petId);
+    fetch(`${baseUrl}admin/doctor/status/${doctorId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then((data) => {
+        if (data.msg == "Admin Registered successfully") {
+          console.log("controling status")
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
 
 </script>

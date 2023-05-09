@@ -195,9 +195,12 @@
       medicalHistoryP.appendChild(medicalHistory);
       card.appendChild(medicalHistoryP);
 
+      const isActive = !pet.status.stat;
+
       const activeBtn = document.createElement('button');
       activeBtn.classList.add('active-btn');
       activeBtn.textContent = 'Active';
+      activeBtn.setAttribute('data-petId', pet._id);
       card.appendChild(activeBtn);
 
       const inactiveBtn = document.createElement('button');
@@ -205,11 +208,27 @@
       inactiveBtn.textContent = 'Inactive';
       inactiveBtn.setAttribute('data-petId', pet._id);
       card.appendChild(inactiveBtn);
-      inactiveBtn.addEventListener("click", (e) => {
-        console.log(pet._id);
-        const petId = e.target.dataset.petId
-        blocking(petId)
-      })
+
+      // hide/show the buttons based on the pet's status
+      if (isActive) {
+        activeBtn.style.display = 'none';
+        inactiveBtn.style.display = 'block';
+
+        inactiveBtn.addEventListener('click', (e) => {
+          blocking(pet._id);
+          location.reload()
+          alert("This pet is inactive now")
+        });
+      } else {
+        activeBtn.style.display = 'block';
+        inactiveBtn.style.display = 'none';
+        activeBtn.addEventListener('click', (e) => {
+          blocking(pet._id);
+          location.reload()
+          alert("This pet is inactive now")
+        });
+      }
+
 
       main.appendChild(card);
     });
@@ -217,7 +236,8 @@
 
 
   function blocking(petId) {
-    fetch(`${baseUrl}admin/pet/status/:${petId}`, {
+    // console.log(petId);
+    fetch(`${baseUrl}admin/pet/status/${petId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -225,15 +245,9 @@
     })
       .then(res => res.json())
       .then((data) => {
-        // Update the UI to show the new status of the pet
-        const status = data.ad.status.stat ? 'Active' : 'Inactive';
-        document.querySelector('.status').textContent = status;
-        console.log(status);
-
-        if(status === "Inactive"){
-          alert("This pet is now inactive!");
+        if (data.msg == "Admin Registered successfully") {
+          console.log("controling status")
         }
-
       })
       .catch((error) => {
         console.log(error);
