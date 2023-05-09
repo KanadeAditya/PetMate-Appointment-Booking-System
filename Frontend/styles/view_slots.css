@@ -4,6 +4,7 @@
     gap: 25px;
     width: 90%;
     margin: auto;
+    margin-top: 23px;
 }
 
 .cart{
@@ -33,5 +34,12 @@
 .buttons button:hover{
     transform: scale(1.1);
     cursor:pointer;
+}
+
+@media all and (min-width:300px) and (max-width:700px){
+    #container{
+       grid-template-columns: repeat(1,1fr);
+
+    }
 }
 

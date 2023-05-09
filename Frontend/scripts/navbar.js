@@ -1,3 +1,5 @@
+import { sqlUrl } from "./baseUrl.js";
+
 document.querySelector("#navbar").innerHTML = `
 <div id="nav-cont">
 
@@ -57,7 +59,36 @@ loginbtn.addEventListener("click",(e)=>{
 signupbtn.addEventListener("click",(e)=>{
     if(e.target.innerText=="Signup"){
         window.location.href="./signup.html";
+        
     }else{
+
+        let token= localStorage.getItem("token");
+        let refreshToken= localStorage.getItem("refreshToken")
+        let petmate=JSON.parse(localStorage.getItem("petmate"))
+
+        fetch(sqlUrl+petmate.role+"/logout",{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({at:token,rt:refreshToken})
+        }).then(res=>res.json())
+        .then((res)=>{
+            if(res.msg==="Logout Successfull"){
+                Swal.fire({
+                    icon: 'success',
+                    title: res.msg
+                })
+             }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: res.msg
+                })
+             }
+        })
+
+        petmate.status=false;
         localStorage.removeItem("token");
         localStorage.removeItem("userName");
         window.location.href="./index.html";
