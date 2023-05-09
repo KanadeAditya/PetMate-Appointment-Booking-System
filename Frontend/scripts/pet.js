@@ -1,23 +1,8 @@
-// import {baseURL} from "./baseURL.js";
+import { baseUrl } from "./baseUrl.js";
 
-console.log("doctors detail page")
+
 let docsCont = document.getElementById("pets_details");
 
-
-let pets_arr = [
-    {
-        "name": "cat",
-        "type": "aaa",
-        "breed": "rtrrf",
-        "owner_name": "dfghfgh",
-        "weight": 45,
-        "dob": 43,
-        "vaccination_data": 46,
-        "vaccination_name": "vacname",
-        "medical_histroy": "medicalhistory"
-    }
-]
-console.log(pets_arr)
 
 // http://localhost:1010/pets/allpets
 // `${baseURL}/pets/allpets`
@@ -28,17 +13,16 @@ getdata();
 
 async function getdata() {
     try {
-        const res = await fetch(`http://localhost:1010/pets/allpets`, {
+        const res = await fetch(baseUrl + `pets/allpets`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2OTg5YWU2Yjg5ZjdjMzExMDAxZmQiLCJzdGF0dXMiOnRydWUsInJvbGUiOiJjdXN0b21lciIsImVtYWlsIjoicmFtQGdtYWlsLmNvbSIsImlhdCI6MTY4MzUzMDYxMywiZXhwIjoxNjgzNjE3MDEzfQ.oUFZmelsorLH8X_m6S2hdC_Sx5C8w6eKAL2vh2n3Vus"
+                "Authorization": localStorage.getItem("token")
             },
 
         });
         let data = await res.json();
 
-        console.log(data);
 
         renderdata(data);
     } catch (error) {
@@ -97,16 +81,7 @@ function renderdata(arr) {
 
                        
                        
-                        <button class="asd" id="popup-button">Medical History </button>
-                        <div class="popup" id="popup-content">
-                            <p>DoctorsID: </p>
-                            <p>type: </p>
-                            <p>prescriptions: </p>
-                            <p>symptoms</p>
-                            
-                            <p>Diagnosis</p>
-                            <button id="close-button">Close</button>
-                        </div>
+                        <button data-petid=${elem._id} class="asd">Medical History </button>
 
                         
                         <button class="asd" id="update-button">Update</button>
@@ -131,19 +106,36 @@ function renderdata(arr) {
     }).join("");
 
 
+    let medical_histroy_btns = document.getElementsByClassName("asd")
+
+    for (let btn of medical_histroy_btns) {
+        btn.addEventListener("click", async (e) => {
+            let res = await fetch(baseUrl + `pets/medhistory/` + e.target.dataset.petid, {
+                headers: {
+                    "Authorization": localStorage.getItem("token")
+                }
+            })
+            let data = await res.json()
+            showMedicalHistoryOfPets(data.medicalHistory)
+        })
+    }
+
+
+
+
 
     document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
-        console.log("heelo")
+
         let date = document.getElementById("datepicker").value
         let vaccinationstatus = document.getElementById("status").value
         let vaccinationname = document.getElementById("vaccinationname").value
-        console.log(date, vaccinationstatus, vaccinationname)
+
         let update_data = {
             date, vaccinationstatus, vaccinationname
         }
         let petid = e.target.dataset.id
-        console.log(e.target.dataset.id, petid)
+
         localStorage.setItem("petid", petid)
         updatevaccination(update_data)
         // console.log(elem._id)
@@ -189,11 +181,70 @@ function renderdata(arr) {
 
 
 
+// dummy data
+
+// let data= [{"Medical_history": {
+//     "doctorID": "6456a551dc3dfb68f298a752",
+//     "type": "cough",
+//     "prescriptions": "paracitamol",
+//     "symptoms": "runnig nose",
+//     "Diagnosis": "hot water"
+//   }},
+// {      "Medical_history": {
+//     "doctorID": "6456a551dc3dfb68f298a752",
+//     "type": "cough",
+//     "prescriptions": "paracitamol",
+//     "symptoms": "runnig nose",
+//     "Diagnosis": "hot water"
+//   }},
+// {  "Medical_history": {
+//     "doctorID": "6456a551dc3dfb68f298a752",
+//     "type": "cough",
+//     "prescriptions": "paracitamol",
+//     "symptoms": "runnig nose",
+//     "Diagnosis": "hot water"
+//   }}]
+
+//    document.getElementById("temp").addEventListener("click",()=>showMedicalHistoryOfPets(data))
+function showMedicalHistoryOfPets(data) {
+    console.log(data[0].Medical_history)
+
+    let table= `<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Prescriptions</th>
+            <th>Symptoms</th>
+            <th>Diagnosis</th>
+        </tr>
+        <tbody>${data.map((e)=>{
+              return `<tr class="active-row">
+                         <td>${e.Medical_history.type}</td>
+                         <td>${e.Medical_history.prescriptions}</td>
+                         <td>${e.Medical_history.symptoms}</td>
+                         <td>${e.Medical_history.Diagnosis}</td>
+                     </tr>`
+        }).join(" ")}</tbody>
+    </thead>
+</table>`;
+
+Swal.fire({
+    html: table,
+    confirmButtonText: 'Close'
+  });
+
+}
+
+
+
+
+
+
 
 
 
 let id = localStorage.getItem("petid")
-console.log(id)
+
 
 
 async function updatevaccination(update_date) {
@@ -208,9 +259,6 @@ async function updatevaccination(update_date) {
 
         });
         let data = await res.json();
-        // data = data.doctor;
-        console.log(data);
-        // renderdata(data);
     } catch (error) {
         console.log(error.message);
     }
@@ -292,5 +340,3 @@ addpets.addEventListener("click", () => {
 
 
 //  <p style="color:white">${elem._id}<p>
-
-console.log(new Date(Date.now()))
