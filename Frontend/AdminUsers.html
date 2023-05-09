@@ -8,6 +8,7 @@
   <title>Users | Admin</title>
   <link rel="stylesheet" href="./styles/adminPets.css">
   <link rel="stylesheet" href="./styles/sidebar.css">
+  <link rel="stylesheet" href="./styles/footer.css">
 
 </head>
 
@@ -15,13 +16,12 @@
 
   <nav id="navbar">
     <div class="logo">
-      <img src="./Files/united-states-pets-small-business-logo-design-removebg-preview.png" alt="Admin Logo">
+      <img src="./Files/petmate-logo.png" alt="Admin Logo">
     </div>
     <h1>Admin Console</h1>
     <ul>
       <li><a href="./adminIndex.html">Home</a></li>
       <li><a href="#">APIs</a></li>
-      <li><a href="#">Logout</a></li>
       <li class="toggle">
         <input type="checkbox" class="checkbox" id="chk" />
         <label class="label" for="chk">
@@ -45,60 +45,105 @@
     <!-- users data append here -->
   </div>
 
+
+  <section id="footer">
+    <!-- Footer Imported -->
+  </section>
+
 </body>
 
 </html>
+
+<script src="scripts/footer.js"></script>
 <script type="module">
-  import {baseUrl} from "./scripts/baseUrl.js";
+  import { baseUrl } from "./scripts/baseUrl.js";
 
   const token = localStorage.getItem('token');
 
-fetch(`${baseUrl}admin/allcustomers`, {
-  method: "GET",
-  headers: {
-    'Content-Type': 'application/json',
-    "Authorization": token // Add the Authorization header with the token value
-  },
-})
-  .then(res => res.json())
-  .then((res) => {
-    // console.log(res, "ok")
-    displayUsers(res)
-  });
+  fetch(`${baseUrl}admin/allcustomers`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": token // Add the Authorization header with the token value
+    },
+  })
+    .then(res => res.json())
+    .then((res) => {
+      // console.log(res, "ok")
+      displayUsers(res)
+    });
 
-function displayUsers(data) {
-  const main = document.querySelector('.main');
-  data.forEach(user => {
-    const card = document.createElement('div');
-    card.classList.add('card');
+  function displayUsers(data) {
+    const main = document.querySelector('.main');
+    data.forEach(user => {
+      const card = document.createElement('div');
+      card.classList.add('card');
 
-    const heading = document.createElement('h2');
-    heading.textContent = user.name;
-    card.appendChild(heading);
+      const heading = document.createElement('h2');
+      heading.textContent = user.name;
+      card.appendChild(heading);
 
-    const email = document.createElement('p');
-    email.textContent = `Email: ${user.email}`;
-    card.appendChild(email);
+      const email = document.createElement('p');
+      email.textContent = `Email: ${user.email}`;
+      card.appendChild(email);
 
-    const activeBtn = document.createElement('button');
-    activeBtn.classList.add('active-btn');
-    activeBtn.textContent = 'Active';
-    card.appendChild(activeBtn);
+      const isActive = user.status;
 
-    const inactiveBtn = document.createElement('button');
-    inactiveBtn.classList.add('inactive-btn');
-    inactiveBtn.textContent = 'Inactive';
-    card.appendChild(inactiveBtn);
+      const activeBtn = document.createElement('button');
+      activeBtn.classList.add('active-btn');
+      activeBtn.textContent = 'Active';
+      activeBtn.setAttribute('data-petId', user._id);
+      card.appendChild(activeBtn);
 
-    if (user.status === 'active') {
-      card.classList.add('active');
-    } else {
-      card.classList.add('inactive');
-    }
+      const inactiveBtn = document.createElement('button');
+      inactiveBtn.classList.add('inactive-btn');
+      inactiveBtn.textContent = 'Inactive';
+      inactiveBtn.setAttribute('data-petId', user._id);
+      card.appendChild(inactiveBtn);
 
-    main.appendChild(card);
-  });
-}
+      // hide/show the buttons based on the pet's status
+      if (isActive) {
+        activeBtn.style.display = 'none';
+        inactiveBtn.style.display = 'block';
+
+        inactiveBtn.addEventListener('click', (e) => {
+          blocking(user._id);
+          location.reload()
+          alert("This user is inactive now")
+        });
+      } else {
+        activeBtn.style.display = 'block';
+        inactiveBtn.style.display = 'none';
+        activeBtn.addEventListener('click', (e) => {
+          blocking(user._id);
+          location.reload()
+          alert("This user is active now")
+        });
+      }
+
+      main.appendChild(card);
+    });
+  }
+
+
+  function blocking(customerId) {
+    // console.log(petId);
+    fetch(`${baseUrl}admin/status/${customerId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then((data) => {
+        if (data.msg == "Admin Registered successfully") {
+          console.log("controling status")
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
 
 

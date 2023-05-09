@@ -1,3 +1,5 @@
+import { baseUrl } from "./baseUrl.js";
+
 
 const sidebar = document.createElement('div');
 sidebar.classList.add('sidebar');
@@ -34,10 +36,39 @@ if (adminData) {
   const logoutButton = document.createElement('button');
   logoutButton.textContent = 'Logout';
   logoutButton.addEventListener('click', () => {
-    // Handle logout logic here
+    logout()
+    console.log("Botton clicked");
   });
   sidebar.appendChild(logoutButton);
   document.body.appendChild(sidebar);
 } else {
   console.error('Admin data not found in local storage');
+}
+
+
+function logout() {
+  const token = localStorage.getItem('token');
+  const refreshToken = localStorage.getItem('refreshToken');
+
+  fetch(`${baseUrl}admin/logout/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      refreshToken: refreshToken
+    })
+  })
+  .then(res => res.json())
+  .then((res) => {
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+
+    window.location.href = './index.html';
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 }

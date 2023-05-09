@@ -40,8 +40,11 @@ navMenu.appendChild(apisLink);
 // Create the Logout link
 const logoutLink = document.createElement('li');
 const logoutLinkAnchor = document.createElement('a');
-logoutLinkAnchor.href = '#';
+logoutLinkAnchor.href = './index.html';
 logoutLinkAnchor.textContent = 'Logout';
+logoutLinkAnchor.addEventListener('click', () => {
+  logout();
+});
 logoutLink.appendChild(logoutLinkAnchor);
 navMenu.appendChild(logoutLink);
 
@@ -72,3 +75,32 @@ navbar.appendChild(navMenu);
 
 // Append the navbar to the document body
 document.body.appendChild(navbar);
+
+
+// logout function here
+function logout() {
+    const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
+  
+    fetch(`${baseUrl}admin/logout/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        refreshToken: refreshToken
+      })
+    })
+    .then(res => res.json())
+    .then((res) => {
+  
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+  
+      window.location.href = './index.html';
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }

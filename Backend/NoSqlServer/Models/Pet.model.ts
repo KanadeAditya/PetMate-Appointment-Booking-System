@@ -10,7 +10,7 @@ interface vacc {
 }
 interface Status {
   reason: string;
-  stat: string;
+  stat: boolean;
 }
 
 interface date {
@@ -43,7 +43,7 @@ const petSchema = new mongoose.Schema<Ipets>({
   weight: { date: Date, value: Number },
   DoB: { type: Date },
   Vaccinations: [{ name: String, date: Date }],
-  status: { type:{reason: String, stat: Boolean},default:{} },
+  status: { type:{reason: String, stat: Boolean},default:{reason:"",stat:true} },
   Medical_history: {
   type: Map,
   default:{},
