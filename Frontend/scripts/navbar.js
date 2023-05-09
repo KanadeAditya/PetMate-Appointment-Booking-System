@@ -5,19 +5,25 @@ document.querySelector("#navbar").innerHTML = `
         <i class="fa-solid fa-bars"></i>
     </div>
 
-    <div data-aos="zoom-out" data-aos-duration="1000" id="nav-logo">
+    <div data-aos="zoom-out" data-aos-duration="1000" 
+    data-aos-offset="200"
+         
+        
+        data-aos-easing="ease-in-out"
+         
+        data-aos-once="true" id="nav-logo">
         <div id="nav-img">
             <img alt="Logo" src="./Files/petmate-logo.png"/>
         </div>
     </div>
 
-    <div data-aos="zoom-out"  id="nav-menu">
+    <div data-aos="zoom-out" data-aos-once="true" id="nav-menu">
         <li id="book-app">Book an appointment</li>
         <li id="find-doc">Find Doctors</li>
         <li>About</li>
     </div>
 
-    <div data-aos="zoom-out" data-aos-duration="1000" id="nav-user-details">
+    <div data-aos="zoom-out" data-aos-duration="1000" data-aos-once="true" id="nav-user-details">
         <button id="nav-login">Login</button>
         <button id="nav-reg">Signup</button>
     </div>
