@@ -1,9 +1,10 @@
 import { sqlUrl } from "./baseUrl.js"
 
 window.addEventListener("load", () => {
+   
 })
 
-fetch(sqlUrl + "doctors/slots", {
+fetch(sqlUrl + "doctors/myslots", {
     headers: {
         "Authorization": localStorage.getItem("token")
     }
@@ -13,13 +14,13 @@ fetch(sqlUrl + "doctors/slots", {
         let container = document.getElementById("container")
 
         const data = res.map((e) => {
-            return `<div class="cart" data-doctorid=${e.DoctorID}>
+            return `<div data-aos="flip-up" class="cart" data-doctorid=${e.DoctorID}>
                      <h3 class="price">Price:- ₹${e.Price}</h3>
                      <h3 class="curr_status">Current status:- ${e.CurrentStatus}</h3>
                      <h4 class="start_time">Start time:- ${e.StartTime}</h4>
                      <h4 class="end_time">End time:- ${e.EndTime}</h4>
                      
-                     <div class="buttons">
+                     <div class="buttons" data-aos="slide-up">
                       <button class="view_info">View info</button>
                       <button class="update_medical_history">Update medical history</button>
                       <button data-slotid=${e.SlotID} class="close_slot">Close slot</button>

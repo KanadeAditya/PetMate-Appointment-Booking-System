@@ -1,4 +1,4 @@
-import baseUrl from "./baseUrl.js";
+import {baseUrl} from "./baseUrl.js";
 
 document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -31,9 +31,6 @@ document.querySelector("form").addEventListener("submit", (e) => {
                 Swal.fire({
                     icon: 'success',
                     title: res.msg,
-                    // showConfirmButton: false,
-                    // timer: 1000,
-                    // theme:"light" ,
                     willClose: () => {
                         window.open("login.html")
                       }

@@ -46,9 +46,6 @@ document.getElementById("CreateSlot").addEventListener("click",(e)=>{
             date:result.value.date,
             slotDuration,
           }
-
-          // console.log(slotDetails)
-          // console.log(localStorage.getItem("token"))
     
           // Here, you can call a function to book the slot with the provided slot duration
           fetch(sqlUrl+"doctors/openslot",{
@@ -61,7 +58,18 @@ document.getElementById("CreateSlot").addEventListener("click",(e)=>{
           })
           .then(res=>res.json())
           .then((res)=>{
-            console.log(res,"ok")
+            if(res.msg==='The slot has been created'){
+              Swal.fire({
+                  icon: 'success',
+                  title: res.msg
+              })
+           }else{
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: res.msg
+              })
+           }
           })
 
         }
@@ -104,7 +112,18 @@ document.getElementById("addDegree").addEventListener("click",()=>{
       })
       .then(res=>res.json())
       .then((res)=>{
-        console.log(res)
+        if(res.msg==='Doctor info updated successfully'){
+          Swal.fire({
+              icon: 'success',
+              title: res.msg
+          })
+       }else{
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: res.msg
+          })
+       }
       })
 
     }
@@ -141,7 +160,18 @@ document.getElementById("speciality").addEventListener("click",()=>{
       })
       .then(res=>res.json())
       .then((res)=>{
-        console.log(res)  
+        if(res.msg==='Doctor info updated successfully'){
+          Swal.fire({
+              icon: 'success',
+              title: res.msg
+          })
+       }else{
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: res.msg
+          })
+       }
       })
 
     }

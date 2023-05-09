@@ -131,8 +131,8 @@ DoctorRouter.patch('/speciality',AuthMiddleware,rbac(['doctor']), async (req: Re
 
       { new: true } // to get the updated document in the response
     );
-res.send("ok")
-    // res.status(200).send({ msg: 'Doctor info updated successfully', doctor: updatedDoctor });
+// res.send("ok")
+    res.status(200).send({ msg: 'Doctor info updated successfully', doctor: updatedDoctor });
   } catch (err) {
     res.status(500).send({ msg: 'Something went wrong in updating doctor info', error: err.message });
   }
