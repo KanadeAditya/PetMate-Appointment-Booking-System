@@ -53,6 +53,7 @@ loginbtn.addEventListener("click",(e)=>{
 signupbtn.addEventListener("click",(e)=>{
     if(e.target.innerText=="Signup"){
         window.location.href="./signup.html";
+        
     }else{
 
         let token= localStorage.getItem("token");
