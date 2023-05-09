@@ -8,6 +8,7 @@
   <title>Doctor | Admin</title>
   <link rel="stylesheet" href="./styles/adminPets.css">
   <link rel="stylesheet" href="./styles/sidebar.css">
+  <link rel="stylesheet" href="./styles/footer.css">
 
 </head>
 
@@ -15,7 +16,7 @@
 
   <nav id="navbar">
     <div class="logo">
-      <img src="./Files/united-states-pets-small-business-logo-design-removebg-preview.png" alt="Admin Logo">
+      <img src="./Files/petmate-logo.png" alt="Admin Logo">
     </div>
     <h1>Admin Console</h1>
     <ul>
@@ -46,9 +47,14 @@
     <!-- All cards append here -->
   </div>
 
+  <section id="footer">
+    <!-- Footer Imported -->
+</section>
+
 </body>
 
 </html>
+<script src="scripts/footer.js"></script>
 <script type="module">
   import { baseUrl } from "./scripts/baseUrl.js";
 
@@ -98,21 +104,64 @@ fetch(`${baseUrl}admin/alldoctors`, {
       speciality.textContent = `Speciality: ${doctor.speciality.join(' ')}`;
       card.appendChild(speciality);
 
+      const isActive = doctor.status;
+
       const activeBtn = document.createElement('button');
       activeBtn.classList.add('active-btn');
       activeBtn.textContent = 'Active';
+      activeBtn.setAttribute('data-petId', doctor._id);
       card.appendChild(activeBtn);
 
       const inactiveBtn = document.createElement('button');
       inactiveBtn.classList.add('inactive-btn');
       inactiveBtn.textContent = 'Inactive';
+      inactiveBtn.setAttribute('data-petId', doctor._id);
       card.appendChild(inactiveBtn);
+
+      // hide/show the buttons based on the pet's status
+      if (isActive) {
+        activeBtn.style.display = 'none';
+        inactiveBtn.style.display = 'block';
+
+        inactiveBtn.addEventListener('click', (e) => {
+          blocking(doctor._id);
+          location.reload()
+          alert("This user is inactive now")
+        });
+      } else {
+        activeBtn.style.display = 'block';
+        inactiveBtn.style.display = 'none';
+        activeBtn.addEventListener('click', (e) => {
+          blocking(doctor._id);
+          location.reload()
+          alert("This user is active now")
+        });
+      }
 
       // Append the card to the main div
       mainDiv.appendChild(card);
     });
   }
 
+
+  function blocking(doctorId) {
+    // console.log(petId);
+    fetch(`${baseUrl}admin/doctor/status/${doctorId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then((data) => {
+        if (data.msg == "Admin Registered successfully") {
+          console.log("controling status")
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
 
 </script>

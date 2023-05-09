@@ -240,7 +240,7 @@ AdminRouter.patch(
     try {
       let adm = await CustomerModel.findOne({ _id: id });
       let ad = await CustomerModel.findByIdAndUpdate({ _id: id }, { status: !adm.status })
-      console.log(ad);
+      // console.log(ad);
       res.status(200).send({ msg: "Admin Registered successfully", ad });
     } catch (err) {
       log.info("POST  /admin/delete error", err.message);
@@ -268,7 +268,7 @@ AdminRouter.patch(
     try {
       let adm = await PetModel.findOne({ _id: id });
       let ad = await PetModel.findByIdAndUpdate({ _id: id }, { "status.stat": !adm.status.stat })
-      console.log(ad);
+      // console.log(ad);
       res.status(200).send({ msg: "Admin Registered successfully", ad });
     } catch (err) {
       log.info("POST  /admin/delete error", err.message);
@@ -295,7 +295,7 @@ AdminRouter.patch(
     try {
       let adm = await DoctorModel.findOne({ _id: id });
       let ad = await DoctorModel.findByIdAndUpdate({ _id: id }, { status: !adm.status })
-      console.log(ad);
+      // console.log(ad);
       res.status(200).send({ msg: "Admin Registered successfully", ad });
     } catch (err) {
       log.info("POST  /admin/delete error", err.message);
