@@ -28,39 +28,86 @@ import { sqlUrl } from "./baseUrl.js";
 
 async function getdata() {
     try {
-        const res = await fetch(sqlUrl + `customers/viewslots`,{
+        const res = await fetch(sqlUrl + `customers/viewslots`, {
             headers: {
-                "Authorization" : localStorage.getItem('token')
+                "Authorization": localStorage.getItem('token')
             }
         });
         let data = await res.json();
         console.log(data)
         renderdata(data, doctors_details);
-        
+
         let slotbtn = document.querySelectorAll('.view-slots');
 
-        for(let btn of slotbtn){
-            btn.addEventListener('click',(e)=>{
-                    // alert(e.target.dataset.doctorid)
+        for (let btn of slotbtn) {
+            btn.addEventListener('click', async (e) => {
+                // alert(e.target.dataset.doctorid)
                 let docid = e.target.dataset.doctorid;
+                // let allSlots= data[e.target.dataset.index].slot
+                let st = await fetch(sqlUrl + "customers/slots/" + docid, {
+                    headers: {
+                        "Authorization": localStorage.getItem('token')
+                    }
+                })
+                let res = await st.json()
+
+
+                let table = `<table class="styled-table">
+                      <thead>
+                          <tr>
+                              <th>Price</th>
+                              <th>Current Status</th>
+                              <th>Start Time</th>
+                              <th>End Time</th>
+                              <th>Book</th>
+                          </tr>
+                          <tbody>${res.map((e) => {
+                    return `<tr class="active-row">
+                                           <td>${e.Price}</td>
+                                           <td>${e.CurrentStatus}</td>
+                                           <td>${new Date(e.StartTime).toLocaleTimeString()}</td>
+                                           <td>${new Date(e.EndTime).toLocaleTimeString()}</td>
+                                           <td><button class="bookBtn" data-slotid=${e.SlotID}>Book</button></td>
+                                       </tr>`
+                }).join(" ")}</tbody>
+                      </thead>
+                  </table>`
+
+
 
                 Swal.fire({
                     title: 'Book Slots',
-                    input: "text",
-                    confirmButtonText: 'Add',
-                    showCancelButton:true,
-
-                    // logic
-                //     btn==>fetch ({body : petId : 'hardcode for now well use local storage afterwards'})
-                    
-                  })
+                    html: table,
+                    didRender: () => {
+                        const bookBtns = document.querySelectorAll('.bookBtn');
+                        bookBtns.forEach((btn) => {
+                            btn.addEventListener('click', () => {
+                                const slotId = btn.dataset.slotid;
+                                fetch(sqlUrl + "customers/book/" + slotId, {
+                                    method:'POST',
+                                    headers: {
+                                        "Authorization": localStorage.getItem('token')
+                                    },
+                                    body:JSON.stringify({PetID:"adlfskf23l"})
+                                }).then(res=>res.json())
+                                .then((res)=>{
+                                       alert(res.msg)
+                                })
+                            });
+                        });
+                    }
+                })
             })
         }
-        
+
     } catch (error) {
         console.log(error.message);
     }
 }
+
+
+//bookBtn
+
 
 function renderdata(arr, target) {
     target.innerHTML = "";
@@ -69,25 +116,25 @@ function renderdata(arr, target) {
         let c = false
         let dates = elem.slot.reduce((acc, curr) => {
             let dd = new Date(curr.StartTime).toLocaleDateString();
-            if (acc[dd] && curr.CurrentStatus==="open") {
+            if (acc[dd] && curr.CurrentStatus === "open") {
                 let start = new Date(curr.StartTime).toLocaleTimeString();
                 let end = new Date(curr.EndTime).toLocaleTimeString();
                 let SlotID = curr.SlotID;
                 c = true
-                acc[dd].push({ start, end,SlotID })
-            } else if(curr.CurrentStatus==="open") {
+                acc[dd].push({ start, end, SlotID })
+            } else if (curr.CurrentStatus === "open") {
                 let start = new Date(curr.StartTime).toLocaleTimeString();
                 let end = new Date(curr.EndTime).toLocaleTimeString();
                 let SlotID = curr.SlotID;
                 c = true
                 acc[dd] = []
-                acc[dd].push({ start, end ,SlotID})
+                acc[dd].push({ start, end, SlotID })
             }
 
             return acc
         }, {})
 
-        console.log(dates)
+        // console.log(dates)
         let fl = elem.slot.length && c;
         // let opsd = []
         // let opst = [];
@@ -107,7 +154,7 @@ function renderdata(arr, target) {
                         <p>UPRN : ${elem.UPRN}</p>
                         <h4>Qualification: ${elem.degree.join(" ")}</h4>
                         <p>₹ <span style="font-weight: bolder; color: chartreuse;"  class="price ${elem._id}"> Select the preferred slot</span> Consultation Fee</p>
-                        ${fl ? `<button class="view-slots" data-doctorid =${elem._id} >View Slots</button>` : `<p style="color:red">Currently Unavailable</p>`}
+                        ${fl ? `<button class="view-slots" data-doctorid =${elem._id} data-index=${ind} >View Slots</button>` : `<p style="color:red">Currently Unavailable</p>`}
                     </div>
                 </div>
             </div>
@@ -122,30 +169,30 @@ getdata();
 
 
 
- //         <div class="doc-book">
-        //             <div class="select-app">
-        //                 <form>
-        //                     <div>
-        //                         <label>Select Date:</label>
-        //                         <select class="date-options ${elem._id}" required="true" name="date">
-        //                                 <option value="a" >Select Date</option>
-        //                              ${fl ? opsd : null}
-        //                         </select>
-        //                         </div>
-        //                         <div>
-        //                         <label>Select Slot:</label>
-        //                         <select class="time-options ${elem._id}" required="true" name="slot">
-                                   
-        //                         </select>
-        //                         <input id="book_slot_id" name="book_slot_id" type="text" style="display:none" value="" />
-        //                     </div>
-        //                     <input class="submit-options ${elem._id}" data-SlotID="${elem._id}" type="submit" value="Book Appointment Now"/>
-                            
-        //                 </form>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
+//         <div class="doc-book">
+//             <div class="select-app">
+//                 <form>
+//                     <div>
+//                         <label>Select Date:</label>
+//                         <select class="date-options ${elem._id}" required="true" name="date">
+//                                 <option value="a" >Select Date</option>
+//                              ${fl ? opsd : null}
+//                         </select>
+//                         </div>
+//                         <div>
+//                         <label>Select Slot:</label>
+//                         <select class="time-options ${elem._id}" required="true" name="slot">
+
+//                         </select>
+//                         <input id="book_slot_id" name="book_slot_id" type="text" style="display:none" value="" />
+//                     </div>
+//                     <input class="submit-options ${elem._id}" data-SlotID="${elem._id}" type="submit" value="Book Appointment Now"/>
+
+//                 </form>
+//             </div>
+//         </div>
+//     </div>
+// </div>
 
 
 //SEARCH DOCTOR

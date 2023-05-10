@@ -4,9 +4,6 @@ import { baseUrl } from "./baseUrl.js";
 let docsCont = document.getElementById("pets_details");
 
 
-// http://localhost:1010/pets/allpets
-// `${baseURL}/pets/allpets`
-
 let token = localStorage.getItem("token")
 getdata();
 // renderdata(pets_arr);
@@ -265,69 +262,6 @@ async function updatevaccination(update_date) {
 }
 
 
-// const updateButton = document.getElementById('update-button');
-// const updateForm = document.getElementById('update-form');
-// const cancelButton = document.getElementById('cancel-button');
-
-// updateButton.addEventListener('click', () => {
-//   updateForm.classList.remove('hidden');
-// });
-
-// cancelButton.addEventListener('click', () => {
-//   updateForm.classList.add('hidden');
-// });
-
-// updateForm.addEventListener('submit', (event) => {
-//   event.preventDefault();
-//   // code to update cart details
-//   updateForm.classList.add('hidden');
-// });
-
-
-
-// const popupButton = document.getElementById('popup-button');
-// 		const popupContent = document.getElementById('popup-content');
-// 		const closeButton = document.getElementById('close-button');
-
-// 		popupButton.addEventListener('click', () => {
-// 			popupContent.style.display = 'block';
-// 		});
-
-// 		closeButton.addEventListener('click', () => {
-// 			popupContent.style.display = 'none';
-// 		});
-
-
-
-
-
-
-
-
-// window.addEventListener("load",async (e)=>{
-//     let deptID=localStorage.getItem("deptID");
-//     if(deptID){
-//         try{
-//             let res=await fetch(baseURL+`doctor/allDoctor/${deptID}`);
-//             if(res.ok){
-//                 let data=await res.json();
-//                 if(data.msg){
-//                     swal("", `${data.msg}`, "info").then(function() {
-//                         getdata();
-//                         });
-//                     }else{
-//                         renderdata(data.doctor);
-//                     }                
-//                 }
-//             localStorage.removeItem("deptID");     
-//         }catch(err){
-//             console.log(err);
-//         }
-//     }else{
-//         getdata();
-//     }
-// })
-
 
 
 
@@ -337,6 +271,3 @@ addpets.addEventListener("click", () => {
     window.open("./addpet.html");
 })
 
-
-
-//  <p style="color:white">${elem._id}<p>
