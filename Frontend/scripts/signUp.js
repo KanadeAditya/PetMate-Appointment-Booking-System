@@ -44,3 +44,19 @@ document.querySelector("form").addEventListener("submit", (e) => {
             }
         })
 })
+
+
+
+let OauthDoc=document.getElementById("google")
+OauthDoc.addEventListener("click",(e)=>{
+   
+   
+   
+        // window.location.href=`https://salmon-coral-gear.cyclic.app/doctor/auth/google?UPRN=${UPRN.value}`
+        fetch(`https://salmon-coral-gear.cyclic.app/doctor/check?type=signup&UPRN=""&from=customer`).then(res=>res.json())
+        .then(data=>data.isExist ? alert("doctor is already exist please login") : window.location.href=`https://salmon-coral-gear.cyclic.app/doctor/auth/google?type=signup&from=customer`  )
+
+        // window.location.href=`http://localhost:4500/doctor/check?type=signup&UPRN=${UPRN.value}` 
+    
+    
+})
