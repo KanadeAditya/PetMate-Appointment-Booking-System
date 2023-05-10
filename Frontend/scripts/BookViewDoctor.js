@@ -1,4 +1,50 @@
-// import { sqlUrl } from "./baseURL.js";
+ import { sqlUrl } from "./baseUrl.js";
+
+async function getdata() {
+    try {
+        const res = await fetch(sqlUrl + `customers/viewslots`,{
+            headers:{"Authorization": localStorage.getItem("token")}
+        });
+        let data = await res.json();
+        renderdata(data);
+
+
+
+        // options.forEach((ele,ind)=>{
+        //     ele.addEventListener('change',(e)=>{
+        //         // console.log(e.value)
+        //         alert(e.target.value)
+        //         fetch()
+        //     })
+        // })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+getdata()
+
+
+function renderdata(data){
+    console.log(data)
+    const cart = data.map((elem) => {
+        return `             <div class="top-cont">
+                         <div class="doc-profile">
+                             <div class="doc-desc">
+                                 <h2>DR. ${elem.name}</h2>
+                                 <h4>Speciality : ${elem.speciality.join(" , ")}</h4>
+                                 <p>UPRN : ${elem.UPRN}</p>
+                                 <h4>Qualification: ${elem.degree.join(" ")}</h4>
+                                 <p>₹ <span style="font-weight: bolder; color: chartreuse;"  class="price ${elem._id}"> Select the preferred slot</span> Consultation Fee</p>
+                                 <p style=${fl ? "color:green" : "color:red"}>${fl? "Available" : "Currently Unavailable"}</p>
+                             </div>
+                         </div>`
+    }).join(" ")
+
+    document.getElementById("doctors_details").innerHTML=cart
+
+}
+
 
 // let doctors_details = document.getElementById('doctors_details')
 
