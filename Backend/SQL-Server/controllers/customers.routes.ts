@@ -46,26 +46,26 @@ CustomerRouter.post('/book/:SlotID',async (req : Request,res : Response) : Promi
         
         let {userID , PetID} = req.body;    
         let {SlotID} = req.params;
-        let ifexist = await db.Slot.findAll({
-            where: {
-                [Op.or] :{
-                    SlotID,
-                    CustomerID:userID
-                }
-            }
-        })
+        // let ifexist = await db.Slot.findAll({
+        //     where: {
+        //         [Op.or] :{
+        //             SlotID,
+        //             CustomerID:userID
+        //         }
+        //     }
+        // })
 
-        if(ifexist.CurrentStatus === "booked"){
-            res.send({msg:'Slot has been already booked'})
-        }else{
+        // if(ifexist.CurrentStatus === "booked"){
+        //     res.send({msg:'Slot has been already booked'})
+        // }else{
             let slot = await db.Slot.update({ 
                 CustomerID:userID,
                 PetID,
                 CurrentStatus:"booked"
              }, {where: {SlotID}});
     
-            res.send({msg:'Slot has been booked or you are at your daily limit, Please empty your slots ',slot})
-        }
+            res.send({msg:'Your Slot has been Booked',slot})
+        // }
     } catch (error) {
         log.error('POST /customers/book -Route-Error',error)
         res.send({msg:'Something Went Wrong',error})
