@@ -1,4 +1,4 @@
-import { sqlUrl } from "./baseUrl.js";
+import { baseUrl, sqlUrl } from "./baseUrl.js";
 
 document.querySelector("#navbar").innerHTML = `
 <div id="nav-cont">
@@ -65,8 +65,7 @@ signupbtn.addEventListener("click",(e)=>{
         let token= localStorage.getItem("token");
         let refreshToken= localStorage.getItem("refreshToken")
         let petmate=JSON.parse(localStorage.getItem("petmate"))
-
-        fetch(sqlUrl+petmate.role+"/logout",{
+        fetch(baseUrl+petmate.role+"s/logout",{
             method:'POST',
             headers:{
                 'Content-Type': 'application/json'

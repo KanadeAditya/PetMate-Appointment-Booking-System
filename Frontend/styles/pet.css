@@ -108,19 +108,6 @@ body{
 }
 
 
-
-
-
-/* update button */
-
-/* #update-button{
-    margin-top: 20px;
-    padding: 5px;
-    font-size: 12px;
-    color: white;
-    background-color: #333652;
-} */
-
 .asd{
     margin-top: 20px;
     padding: 5px;
@@ -152,25 +139,6 @@ body{
   
 
 
-  /* date picker */
-  
-
-  /* popup medical history */
-
-  .popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    z-index: 9999;
-}
-
-
 #addpets{
     padding: 8px;
     margin-top: 10px;
@@ -178,4 +146,64 @@ body{
     border: none;
     background-color: #333652;
     color: white;
+}
+
+/* table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+
+  th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  } */
+
+  .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
 }
