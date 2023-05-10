@@ -20,9 +20,10 @@ document.querySelector("#navbar").innerHTML = `
     </div>
 
     <div data-aos="zoom-out" data-aos-once="true" id="nav-menu">
-        <li id="book-app">Book an appointment</li>
-        <li id="find-doc">Find Doctors</li>
-        <li>About</li>
+            <a href="./BookViewDoctor.html"><li id="book-app">Book an appointment</li></a>
+            <a href="./BookViewDoctor.html"><li id="find-doc">Find Doctors</li></a>
+            <a href="./addpet.html"> <li>Add Pet</li></a>
+       
     </div>
 
     <div data-aos="zoom-out" data-aos-duration="1000" data-aos-once="true" id="nav-user-details">

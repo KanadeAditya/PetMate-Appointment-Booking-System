@@ -1,4 +1,31 @@
-import { sqlUrl } from "./baseUrl.js";
+import { sqlUrl ,baseUrl} from "./baseUrl.js";
+
+let petmate = JSON.parse(localStorage.getItem('petmate'))
+
+
+
+fetch(baseUrl+'pets/mypets/'+petmate.userId,{
+    headers: {
+        "Authorization": localStorage.getItem('token')
+    }
+})
+.then(res=>res.json())
+.then((data)=>{
+    console.log(data)
+    let docFilterTag = document.querySelector("#doc-sf-right>select")
+    
+    data.forEach((el,ind)=>{
+
+        docFilterTag.innerHTML += `<option value ="${el._id}" >${el.name}</option>`
+    })
+    docFilterTag.addEventListener("change", async (e) => {
+            let filterValue = docFilterTag.value;
+           if(filterValue !== ""){
+             localStorage.setItem("petid",filterValue)
+           }
+    })
+
+})
 
 // let doctors_details = document.getElementById('doctors_details')
 
@@ -88,10 +115,21 @@ async function getdata() {
                                     headers: {
                                         "Authorization": localStorage.getItem('token')
                                     },
-                                    body:JSON.stringify({PetID:"adlfskf23l"})
+                                    body:JSON.stringify({PetID:localStorage.getItem('petid')})
                                 }).then(res=>res.json())
                                 .then((res)=>{
-                                       alert(res.msg)
+                                    if(res.msg==="Your Slot has been Booked"){
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: res.msg
+                                        })
+                                     }else{
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: res.msg
+                                        })
+                                     }
                                 })
                             });
                         });
@@ -212,25 +250,7 @@ docInputTag.addEventListener("input", async (e) => {
 })
 
 //FILTER BY DEPT ID
-let docFilterTag = document.querySelector("#doc-sf-right>select");
-docFilterTag.addEventListener("change", async (e) => {
-    let filterValue = docFilterTag.value;
-    try {
-        let res = await fetch(baseURL + `doctor/allDoctor/${filterValue}`);
-        if (res.ok) {
-            let data = await res.json();
-            if (data.msg) {
-                swal("", `${data.msg}`, "info").then(function () {
-                    getdata();
-                });
-            } else {
-                renderdata(data.doctor);
-            }
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
+
 
 //RESET FILTERS
 

@@ -28,14 +28,14 @@ async function addpet(new_pet) {
         const res = await fetch(`http://localhost:1010/pets/add`,{
             method: 'POST',
             headers: { 'Content-Type': 'application/json',
-            "Authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDU2OTg5YWU2Yjg5ZjdjMzExMDAxZmQiLCJzdGF0dXMiOnRydWUsInJvbGUiOiJjdXN0b21lciIsImVtYWlsIjoicmFtQGdtYWlsLmNvbSIsImlhdCI6MTY4MzUzMDYxMywiZXhwIjoxNjgzNjE3MDEzfQ.oUFZmelsorLH8X_m6S2hdC_Sx5C8w6eKAL2vh2n3Vus"
+            "Authorization": localStorage.getItem('token')
         },
         body: JSON.stringify(new_pet)
             
         });
         let data = await res.json();
         // data = data.doctor;
-        console.log(data);
+        alert(data.msg)
         // renderdata(data);
     } catch (error) {
         console.log(error.message);

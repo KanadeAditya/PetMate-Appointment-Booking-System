@@ -114,6 +114,22 @@ PetRouter.get('/allpets', async (req: Request, res: Response) => {
 })
 
 
+
+PetRouter.get('/mypets/:id', async (req: Request, res: Response) => {
+
+    try {
+        let {id} = req.params
+        let pet = await PetModel.find({
+            OwnerID : id
+        })
+        res.status(200).send(pet)
+    } catch (error) {
+        log.info('Pet-route-error', error)
+        res.status(500).send({ msg: "something went wrong in route", error: error.message });
+    }
+})
+
+
 PetRouter.patch("/medhistory/:id", rbac(["doctor"]), async (req: Request, res: Response) => {
     try {
         let { userID, type, prescriptions, symptoms, Diagnosis } = req.body;
