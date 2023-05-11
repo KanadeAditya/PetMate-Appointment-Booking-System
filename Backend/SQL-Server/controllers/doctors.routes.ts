@@ -54,22 +54,22 @@ DoctorRouter.post('/openslot', async (req:Request, res:Response) => {
         // console.log(new Date(Date.now()))
         // res.send({date : new Date(date)})
         // return 
-        date = Date.now()
-        let ifexist = await db.Slot.findAll({
-            where: {
-                [Op.and] :{
-                    DoctorID:userID,
-                    StartTime:{
-                        [Op.like] : `${new Date(date).toISOString().slice(0,11)}%`
-                    }
-                }
-            }
-        })    
-        console.log(new Date(date).toString().slice(0,11))
-        if(ifexist.length >3){
-            res.send({msg : "Doctor cant open more than 3 slots per Day"})
-            return 
-        }
+        // date = Date.now()
+        // let ifexist = await db.Slot.findAll({
+        //     where: {
+        //         [Op.and] :{
+        //             DoctorID:userID,
+        //             StartTime:{
+        //                 [Op.like] : `${new Date(date).toISOString().slice(0,11)}%`
+        //             }
+        //         }
+        //     }
+        // })    
+        // console.log(new Date(date).toString().slice(0,11))
+        // if(ifexist.length >3){
+        //     res.send({msg : "Doctor cant open more than 3 slots per Day"})
+        //     return 
+        // }
         let check = new Date(Date.now()).setDate(new Date(date).getDate() + 7)
         if(check > Date.now()){
             let slot = await db.Slot.create({
