@@ -1,7 +1,7 @@
 
 document.querySelector("#footer").innerHTML=`
 <div id="footer-cont">
-    <div data-aos="fade-right" data-aos-duration="1000" id="footer-left">
+    <div data-aos="fade-right"  data-aos-duration="1000" data-aos-once="true" id="footer-left">
         <div>
             <h4>Petmate</h4>
             <p>About</p>
@@ -25,7 +25,7 @@ document.querySelector("#footer").innerHTML=`
             <p>Heathcare Directory</p>
         </div>
     </div>
-    <div data-aos="fade-left" data-aos-duration="1000" id="footer-right">
+    <div data-aos="fade-left" data-aos-duration="1000" data-aos-once="true" id="footer-right">
         <div id="logo-div">
             <img alt="logo" src="./Files/petmate-logo.png"/>
         </div>
