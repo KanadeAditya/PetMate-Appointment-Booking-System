@@ -290,14 +290,19 @@
 </html>
 <script>
   const urlParams = new URLSearchParams(window.location.search);
-const token = urlParams.get('token'); 
-const name = urlParams.get('name'); 
-const role = urlParams.get('role'); 
-const id = urlParams.get('id'); 
-const status = urlParams.get('status'); 
-localStorage.setItem("token",token)
-                 
-                localStorage.setItem("userName",name)
-                localStorage.setItem("petmate",JSON.stringify({userId:id,role:role,name:name,status:status }))
+
+  if(urlParams.get('token')){
+      
+    const token = urlParams.get('token'); 
+    const name = urlParams.get('name'); 
+    const role = urlParams.get('role'); 
+    const id = urlParams.get('id'); 
+    const status = urlParams.get('status'); 
+    localStorage.setItem("token",token)
+                    
+    localStorage.setItem("userName",name)
+    localStorage.setItem("petmate",JSON.stringify({userId:id,role:role,name:name,status:status }))
+  }
+
 
 </script>

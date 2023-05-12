@@ -19,6 +19,15 @@ document.querySelector("form").addEventListener("submit", (e) => {
         .then((res) => res.json())
         .then((res) => {
             if (res.msg=="login successful") {
+                
+
+                localStorage.setItem("token",res.acessToken)
+                localStorage.setItem("refreshToken",res.refToken)
+                localStorage.setItem("userName",res.name)
+                console.log(res)
+                localStorage.setItem("petmate",JSON.stringify({userId:res.userID,role:res.role,name:res.name,status:true }))
+
+                
                 Swal.fire({
                     icon: 'success',
                     title: res.msg,
@@ -28,11 +37,6 @@ document.querySelector("form").addEventListener("submit", (e) => {
                         window.open("home.html")
                       }
                 })
-
-                localStorage.setItem("token",res.acessToken)
-                localStorage.setItem("refreshToken",res.refToken)
-                localStorage.setItem("userName",res.name)
-                localStorage.setItem("petmate",JSON.stringify({userId:res.userID,role:res.role,name:res.name,status:true }))
             } else {
                 Swal.fire({
                     icon: 'error',
