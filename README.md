@@ -104,3 +104,12 @@ To run this project, you will need to add the following environment variables to
 - Role Based Access Control 
 
 
+## User Interface of App 
+
+<img src="https://i.ibb.co/GtFLtVs/petmate-landingpage.png" alt="petmate-landingpage" border="0">
+<img src="https://i.ibb.co/Z1BDLdj/Petmate-login-signup-UI.png" alt="Petmate-login-signup-UI" border="0">
+<img src="https://i.ibb.co/K9YgF2f/petmate-homepage-user.png" alt="petmate-homepage-user" border="0">
+<img src="https://i.ibb.co/hCbc8DQ/petmate-Bookings-Page.png" alt="petmate-Bookings-Page" border="0">
+<img src="https://i.ibb.co/h9R8FF7/Petmate-doctor-homepage.png" alt="Petmate-doctor-homepage" border="0">
+<img src="https://i.ibb.co/MCSbNpm/admin-Dashboard.png" alt="Petmate-admin-dashboard" border="0">
+
