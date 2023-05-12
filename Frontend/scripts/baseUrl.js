@@ -1,3 +1,3 @@
-let baseUrl="https://encouraging-fox-veil.cyclic.app/";
-let sqlUrl="https://dark-lime-clownfish-wear.cyclic.app/"
+let baseUrl="http://localhost:1010/";
+let sqlUrl="http://localhost:8080/"
 export {baseUrl,sqlUrl};
