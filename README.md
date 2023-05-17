@@ -7,6 +7,8 @@ PetMate is a user-friendly web application designed to simplify the process of s
 
 In addition to appointment scheduling, PetMate also includes an "open slots" feature that allows veterinarians to specify their availability for appointments. This feature enables pet owners to view available appointment slots for their preferred veterinarian and select a time that works best for them.
 
+> Work In Progress For Converting the Frontend In React-Typescript , Please Find the first version on this branch => [Version-1](https://github.com/KanadeAditya/PetMate-Appointment-Booking-System/tree/version-1)
+
 ## Demo Links
 
 > [Petmate App (netlify link)](https://pet-mate-veterinary.netlify.app/)  
