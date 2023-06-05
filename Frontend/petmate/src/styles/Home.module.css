@@ -1,0 +1,50 @@
+#cont{
+    /* border:1px solid red; */
+    width: 100%;
+    height: auto;
+
+}
+#cont>div{
+    color: black;
+}
+.zoomIn {
+    animation: zoomInAnimation 2s forwards;
+    width:70%;
+    height: auto;
+    margin: auto;
+     text-align: center;
+  }
+  
+  @keyframes zoomInAnimation {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+
+
+
+  .image{
+    width: 100%;
+    /* border: 1px solid red; */
+  }
+/* .zoomInOut {
+    animation: zoomInOutAnimation 2s infinite alternate;
+  }
+  
+  @keyframes zoomInOutAnimation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  } */
